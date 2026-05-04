@@ -5,12 +5,6 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  basePath: '/gethotelai',
-  assetPrefix: '/gethotelai',
-  // Ensure CSS paths are correct
-  webpack: (config) => {
-    return config;
-  },
 };
 
 export default nextConfig;
