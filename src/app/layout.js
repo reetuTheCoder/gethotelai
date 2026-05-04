@@ -1,19 +1,16 @@
-import Navbar from '@/Components/Navbar';
 import './globals.css';
-import Footer from '@/Components/Footer';
 
 export const metadata = {
-  title: 'Your Site Title',
-  description: 'Your Site Description',
+  title: 'GetHotelAI - AI Agent for Modern Hotels',
+  description: 'AI Q&A, Actions, Lead Gen, and Live Chat for hotels. 24/7 guest service automation.',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link
           href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
           rel="stylesheet"
@@ -27,13 +24,8 @@ export default function RootLayout({ children }) {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         />
       </head>
-
-
       <body>
-        <Navbar />
         <main>{children}</main>
-
-        <Footer />
       </body>
     </html>
   );

@@ -1,170 +1,1104 @@
-.page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
-  font-family: var(--font-geist-sans);
+.container {
+  min-height: 100vh;
 }
 
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #1c1c2b;
+  position: relative;
+  z-index: 10;
+}
 
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
+.navItems {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
+.navItem {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navItem:hover {
+  color: var(--primary-color);
+}
+
+.navIcons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Banner Styles */
+.banner {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 3rem 2rem;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .banner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
-.main {
+.bannerText {
+  max-width: 600px;
+}
+
+.bannerText h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.gradientText {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bannerText p {
+  color: #ccc;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.bannerButtons {
   display: flex;
-  flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  gap: 1rem;
 }
 
-.main ol {
-  font-family: var(--font-geist-mono);
-  padding-left: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  list-style-position: inside;
-}
-
-.main li:not(:last-of-type) {
-  margin-bottom: 8px;
-}
-
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.ctas {
-  display: flex;
-  gap: 16px;
-}
-
-.ctas a {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
+.btnOrange {
+  background: var(--primary-gradient);
+  color: white;
   border: none;
-  border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.btnOrange:hover {
+  opacity: 0.9;
+}
+
+.btnDark {
+  background-color: #374151;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnDark:hover {
+  background-color: #4b5563;
+}
+
+.bannerImage .imagePlaceholder {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, rgba(255,102,0,0.1) 0%, rgba(154,245,10,0.1) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
+  border-radius: 16px;
+  font-size: 1rem;
+  color: #888;
+  border: 1px solid rgba(255,102,0,0.3);
 }
 
-a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
+.aiPreview {
+  font-size: 3rem;
+  animation: pulse 2s infinite;
 }
 
-a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 180px;
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
+/* Features Section */
+.features {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 2.5rem;
+  margin-bottom: 48px;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featureCard {
+  background: rgba(28, 31, 42, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 32px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.featureIcon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.featureCard h3 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: var(--secondary-color);
+}
+
+.featureCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+}
+
+/* Waitlist Section */
+.waitlist {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #131626 0%, #0D0F1B 100%);
+  text-align: center;
+}
+
+.waitlistContainer {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.waitlistContainer h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.waitlistContainer p {
+  color: #B5B0BC;
+  margin-bottom: 32px;
+}
+
+.waitlistForm {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.emailInput {
+  flex: 1;
+  min-width: 250px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+}
+
+.emailInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.submitButton {
+  padding: 14px 32px;
+  background: var(--primary-gradient);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.successMessage {
+  padding: 16px;
+  background: rgba(154, 245, 10, 0.1);
+  border: 1px solid var(--secondary-color);
+  border-radius: 8px;
+  color: var(--secondary-color);
+}
+
+/* Footer */
 .footer {
-  grid-row-start: 3;
-  display: flex;
-  gap: 24px;
+  text-align: center;
+  padding: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #B5B0BC;
 }
 
-.footer a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer img {
-  flex-shrink: 0;
-}
-
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+/* Responsive */
+@media (max-width: 768px) {
+  .features {
+    padding: 60px 20px;
   }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+  
+  .features h2 {
+    font-size: 2rem;
   }
-
-  .footer a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  
+  .featuresGrid {
+    grid-template-columns: 1fr;
   }
-}
-
-@media (max-width: 600px) {
-  .page {
-    padding: 32px;
-    padding-bottom: 80px;
-  }
-
-  .main {
-    align-items: center;
-  }
-
-  .main ol {
-    text-align: center;
-  }
-
-  .ctas {
+  
+  .waitlistForm {
     flex-direction: column;
   }
-
-  .ctas a {
-    font-size: 14px;
-    height: 40px;
-    padding: 0 16px;
+  
+  .emailInput {
+    width: 100%;
   }
-
-  a.secondary {
-    min-width: auto;
+  
+  .bannerText h1 {
+    font-size: 2rem;
   }
+  
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .navItems {
+    gap: 1rem;
+  }
+}
 
-  .footer {
-    flex-wrap: wrap;
-    align-items: center;
+/* Trust Badges */
+.trustBadges {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.trustBadges span {
+  font-size: 0.85rem;
+  background: rgba(255, 102, 0, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 102, 0, 0.3);
+}
+
+.chatPreview {
+  font-size: 0.75rem;
+  margin-top: 1rem;
+  background: rgba(0,0,0,0.5);
+  padding: 0.5rem;
+  border-radius: 8px;
+  max-width: 250px;
+}
+
+/* Philosophy Section */
+.philosophy {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+}
+
+.philosophyContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.philosophy h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.philosophySubhead {
+  text-align: center;
+  color: #B5B0BC;
+  margin-bottom: 3rem;
+  font-size: 1.2rem;
+}
+
+.philosophyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.philosophyCard {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(28, 31, 42, 0.4);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.philosophyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.philosophyCard h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.philosophyCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+}
+
+/* Roadmap Section */
+.roadmap {
+  padding: 80px 40px;
+  background: #0D0F1B;
+}
+
+.roadmap h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.roadmapSubhead {
+  text-align: center;
+  color: #B5B0BC;
+  margin-bottom: 3rem;
+}
+
+.timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--primary-gradient);
+}
+
+.timelineItem {
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 3rem;
+}
+
+.timelineDot {
+  position: absolute;
+  left: 12px;
+  top: 5px;
+  width: 18px;
+  height: 18px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  border: 3px solid var(--secondary-color);
+}
+
+.timelineContent {
+  background: rgba(28, 31, 42, 0.4);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--primary-gradient);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.timelineContent h3 {
+  margin-bottom: 0.5rem;
+}
+
+.timelineContent p {
+  color: #B5B0BC;
+  margin-bottom: 1rem;
+}
+
+.timelineContent ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.timelineContent li {
+  padding: 0.25rem 0;
+  color: #ccc;
+}
+
+/* Why Us Section */
+.whyUs {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #131626 0%, #0D0F1B 100%);
+}
+
+.whyUs h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.whyCard {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(28, 31, 42, 0.4);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.whyCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.whyNumber {
+  font-size: 3rem;
+  font-weight: bold;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+
+.whyCard h3 {
+  margin-bottom: 1rem;
+}
+
+.whyCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+}
+
+/* Responsive updates */
+@media (max-width: 768px) {
+  .philosophy, .roadmap, .whyUs {
+    padding: 60px 20px;
+  }
+  
+  .timeline::before {
+    left: 15px;
+  }
+  
+  .timelineItem {
+    padding-left: 45px;
+  }
+  
+  .timelineDot {
+    left: 7px;
+  }
+  
+  .trustBadges {
     justify-content: center;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
+/* Architecture Section */
+.architecture {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+}
+
+.architecture h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.architectureSubhead {
+  text-align: center;
+  color: #B5B0BC;
+  margin-bottom: 3rem;
+}
+
+.architectureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.architectureCard {
+  background: rgba(28, 31, 42, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 32px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.architectureCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.architectureIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.architectureCard h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.architectureCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.architectureCard ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.architectureCard li {
+  padding: 0.25rem 0;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.architectureNote {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding: 1rem;
+  background: rgba(255, 102, 0, 0.1);
+  border-left: 3px solid var(--primary-color);
+  border-radius: 8px;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* For Hotels Section */
+.forHotels {
+  padding: 80px 40px;
+  background: #0D0F1B;
+}
+
+.forHotels h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hotelsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hotelsCard {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(28, 31, 42, 0.4);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.hotelsCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.hotelsIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hotelsCard h3 {
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+}
+
+.hotelsCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+}
+
+/* Responsive updates */
+@media (max-width: 768px) {
+  .architecture, .forHotels {
+    padding: 60px 20px;
+  }
+  
+  .architecture h2, .forHotels h2 {
+    font-size: 2rem;
+  }
+  
+  .architectureGrid, .hotelsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Trust Badges */
+.trustBadges {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.trustBadges span {
+  font-size: 0.85rem;
+  background: rgba(255, 102, 0, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 102, 0, 0.3);
+}
+
+.chatPreview {
+  font-size: 0.75rem;
+  margin-top: 1rem;
+  background: rgba(0,0,0,0.5);
+  padding: 0.5rem;
+  border-radius: 8px;
+  max-width: 280px;
+  line-height: 1.4;
+}
+
+/* Philosophy Section */
+.philosophy {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+}
+
+.philosophyContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.philosophy h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.philosophySubhead {
+  text-align: center;
+  color: #B5B0BC;
+  margin-bottom: 3rem;
+  font-size: 1.2rem;
+}
+
+.philosophyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.philosophyCard {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(28, 31, 42, 0.4);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.philosophyCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.philosophyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.philosophyCard h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.philosophyCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+}
+
+/* Architecture Section */
+.architecture {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.architecture h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.architectureSubhead {
+  text-align: center;
+  color: #B5B0BC;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.architectureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.architectureCard {
+  background: rgba(28, 31, 42, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 32px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.architectureCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.architectureIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.architectureCard h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.architectureCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.architectureCard ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.architectureCard li {
+  padding: 0.35rem 0;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.architectureNote {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 102, 0, 0.1);
+  border-left: 3px solid var(--primary-color);
+  border-radius: 8px;
+  color: #ccc;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Roadmap Section */
+.roadmap {
+  padding: 80px 40px;
+  background: #0D0F1B;
+}
+
+.roadmap h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.roadmapSubhead {
+  text-align: center;
+  color: #B5B0BC;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--primary-gradient);
+}
+
+.timelineItem {
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 3rem;
+}
+
+.timelineDot {
+  position: absolute;
+  left: 12px;
+  top: 5px;
+  width: 18px;
+  height: 18px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  border: 3px solid var(--secondary-color);
+  z-index: 1;
+}
+
+.timelineContent {
+  background: rgba(28, 31, 42, 0.4);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--primary-gradient);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.timelineContent h3 {
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+}
+
+.timelineContent p {
+  color: #B5B0BC;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.timelineContent ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.timelineContent li {
+  padding: 0.25rem 0;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* For Hotels Section */
+.forHotels {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #131626 0%, #0D0F1B 100%);
+}
+
+.forHotels h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hotelsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hotelsCard {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(28, 31, 42, 0.4);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.hotelsCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.hotelsIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hotelsCard h3 {
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+}
+
+.hotelsCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+}
+
+/* Why Us Section */
+.whyUs {
+  padding: 80px 40px;
+  background: #0D0F1B;
+}
+
+.whyUs h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.whyCard {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(28, 31, 42, 0.4);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.whyCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.whyNumber {
+  font-size: 3rem;
+  font-weight: bold;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+
+.whyCard h3 {
+  margin-bottom: 1rem;
+}
+
+.whyCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+}
+
+/* Responsive Updates */
+@media (max-width: 768px) {
+  .philosophy, .architecture, .roadmap, .forHotels, .whyUs {
+    padding: 60px 20px;
+  }
+  
+  .philosophy h2, .architecture h2, .roadmap h2, .forHotels h2, .whyUs h2 {
+    font-size: 2rem;
+  }
+  
+  .timeline::before {
+    left: 15px;
+  }
+  
+  .timelineItem {
+    padding-left: 45px;
+  }
+  
+  .timelineDot {
+    left: 7px;
+  }
+  
+  .trustBadges {
+    justify-content: center;
+  }
+  
+  .chatPreview {
+    font-size: 0.7rem;
+    max-width: 240px;
+  }
+  
+  .philosophyGrid, .architectureGrid, .hotelsGrid, .whyGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .architectureCard ul li {
+    font-size: 0.85rem;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .chatPreview {
+    display: none;
+  }
+  
+  .trustBadges span {
+    font-size: 0.7rem;
   }
 }
