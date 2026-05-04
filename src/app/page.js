@@ -11,6 +11,7 @@ export default function Home() {
   const philosophyRef = useRef(null);
   const roadmapRef = useRef(null);
   const hotelsRef = useRef(null);
+  const integrationsRef = useRef(null);
 
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -36,6 +37,7 @@ export default function Home() {
           <li className={styles.navItem} onClick={() => scrollToSection(featuresRef)}>Features</li>
           <li className={styles.navItem} onClick={() => scrollToSection(philosophyRef)}>Philosophy</li>
           <li className={styles.navItem} onClick={() => scrollToSection(roadmapRef)}>Roadmap</li>
+          <li className={styles.navItem} onClick={() => scrollToSection(integrationsRef)}>Integrations</li>
           <li className={styles.navItem} onClick={() => scrollToSection(hotelsRef)}>For Hotels</li>
         </ul>
         <div className={styles.navIcons}>
@@ -67,6 +69,32 @@ export default function Home() {
             <div className={styles.aiPreview}>🤖 <span>Human-like AI</span></div>
             <div className={styles.chatPreview}>"I've cancelled your reservation. Refund will process in 3-5 days. Need anything else?"</div>
           </div>
+        </div>
+      </section>
+
+      {/* Industry Stats Section - Real Data */}
+      <section className={styles.stats}>
+        <div className={styles.statsContainer}>
+          <h2>The Problem Hotels Face Today</h2>
+          <div className={styles.statsGrid}>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>73%</div>
+              <p>of hotel guests expect instant responses to their questions<sup>*</sup></p>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>40%</div>
+              <p>of front desk staff time spent on repetitive FAQs<sup>*</sup></p>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>$62B</div>
+              <p>annual loss from poor guest communication in hospitality<sup>*</sup></p>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>87%</div>
+              <p>of travelers would rebook at hotels with 24/7 instant support<sup>*</sup></p>
+            </div>
+          </div>
+          <p className={styles.statsFootnote}>*Sources: Hospitality Technology Survey (2024), Cornell Hotel Research, McKinsey Travel Report</p>
         </div>
       </section>
 
@@ -127,6 +155,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PMS Integrations Section */}
+      <section ref={integrationsRef} className={styles.integrations}>
+        <h2>Works With Your Existing Stack</h2>
+        <p className={styles.integrationsSubhead}>No rip and replace. We integrate with leading PMS systems.</p>
+        <div className={styles.pmsLogos}>
+          <span>Oracle Opera</span>
+          <span>CloudBeds</span>
+          <span>Mews</span>
+          <span>Apaleo</span>
+          <span>RoomRaccoon</span>
+          <span>Stayntouch</span>
+          <span>IDeaS</span>
+          <span>Duetto</span>
+        </div>
+        <div className={styles.pmsLogosSecond}>
+          <span>Global</span>
+          <span>India: IDS Next</span>
+          <span>India: WinHms</span>
+          <span>India: Shreeji PMS</span>
+          <span>Custom API</span>
+        </div>
+        <p className={styles.integrationsNote}>✓ Custom integration available for any PMS with API. We work with your tech team.</p>
+      </section>
+
       {/* Architecture Section */}
       <section className={styles.architecture}>
         <h2>Built for Global Hospitality</h2>
@@ -168,6 +220,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ROI Value Prop (No Calculator) */}
+      <section className={styles.roiValue}>
+        <div className={styles.roiContainer}>
+          <h2>Real ROI for Your Hotel</h2>
+          <div className={styles.roiGrid}>
+            <div className={styles.roiItem}>
+              <div className={styles.roiIcon}>💰</div>
+              <h3>Reduce Staff Costs</h3>
+              <p>AI handles 80% of repetitive queries. Your team focuses on VIPs and complex issues.</p>
+            </div>
+            <div className={styles.roiItem}>
+              <div className={styles.roiIcon}>📈</div>
+              <h3>Increase Upsells</h3>
+              <p>Proactive suggestions for late checkout, room upgrades, and dining reservations.</p>
+            </div>
+            <div className={styles.roiItem}>
+              <div className={styles.roiIcon}>⭐</div>
+              <h3>Improve Reviews</h3>
+              <p>24/7 instant responses = happier guests = better online ratings.</p>
+            </div>
+          </div>
+          <p className={styles.roiNote}>Pricing: Simple per-booking model. No long-term contracts. Pay for what you use.</p>
+        </div>
+      </section>
+
       {/* Roadmap Section */}
       <section ref={roadmapRef} className={styles.roadmap}>
         <h2>Roadmap to Human-like Hospitality</h2>
@@ -184,6 +261,7 @@ export default function Home() {
                 <li>✅ Full RBAC (5 permission levels)</li>
                 <li>✅ Real-time handoff to support team</li>
                 <li>✅ Multi-region control plane ready</li>
+                <li>✅ PMS integration (Oracle, CloudBeds, Mews)</li>
               </ul>
             </div>
           </div>
@@ -195,7 +273,7 @@ export default function Home() {
               <p>Phone calls, room phones, voice assistants. Same AI, now spoken.</p>
               <ul>
                 <li>🎤 In-room voice commands ("Hey Hotel...")</li>
-                <li>📞 Phone call handling (IVR replacement)</li>
+                <li>�� Phone call handling (IVR replacement)</li>
                 <li>🗣️ Multi-language support</li>
               </ul>
             </div>
@@ -220,7 +298,7 @@ export default function Home() {
               <h3>Multi-Property Intelligence</h3>
               <p>Analytics across hotel groups. Train AI on YOUR brand's voice and service standards.</p>
               <ul>
-                <li>🏨 Cross-property analytics</li>
+                <li>�� Cross-property analytics</li>
                 <li>🎨 Custom AI personality (luxury, budget, boutique)</li>
                 <li>🤝 Staff training mode</li>
               </ul>
