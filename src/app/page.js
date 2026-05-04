@@ -5,6 +5,17 @@ import styles from "./page.module.css";
 export default function Home() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    hotelName: "",
+    hotelRole: "",
+    hotelSize: "",
+    phoneNumber: "",
+    message: ""
+  });
+  const [formStatus, setFormStatus] = useState("idle");
   
   // Refs for smooth scroll
   const featuresRef = useRef(null);
@@ -17,11 +28,62 @@ export default function Home() {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSubmit = async (e) => {
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setFormData({
+      fullName: "",
+      email: "",
+      hotelName: "",
+      hotelRole: "",
+      hotelSize: "",
+      phoneNumber: "",
+      message: ""
+    });
+    setFormStatus("idle");
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus("loading");
+    
+    // Log all form data to console
+    console.log("=== New Waitlist Signup ===");
+    console.log("Full Name:", formData.fullName);
+    console.log("Email:", formData.email);
+    console.log("Hotel Name:", formData.hotelName);
+    console.log("Role:", formData.hotelRole);
+    console.log("Hotel Size:", formData.hotelSize);
+    console.log("Phone:", formData.phoneNumber);
+    console.log("Message:", formData.message);
+    console.log("Timestamp:", new Date().toISOString());
+    console.log("==========================");
+    
+    // TODO: API call will be added here later
+    setTimeout(() => {
+      setFormStatus("success");
+      setTimeout(() => {
+        closeModal();
+        alert("Thank you for joining the waitlist! We'll email you once GetHotelAI launches. 🏨✨");
+      }, 1500);
+    }, 1000);
+  };
+
+  const handleSimpleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
+    console.log("Simple email saved:", email);
     setTimeout(() => {
-      console.log("Email saved:", email);
       setStatus("success");
       setEmail("");
       setTimeout(() => setStatus("idle"), 3000);
@@ -54,7 +116,7 @@ export default function Home() {
             Handoff to humans in seconds. Never robotic. Always efficient.
           </p>
           <div className={styles.bannerButtons}>
-            <button className={styles.btnOrange}>Join Waitlist →</button>
+            <button className={styles.btnOrange} onClick={openModal}>Join Waitlist →</button>
             <button className={styles.btnDark}>See Demo</button>
           </div>
           <div className={styles.trustBadges}>
@@ -72,31 +134,138 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Industry Stats Section - Real Data */}
-      <section className={styles.stats}>
-        <div className={styles.statsContainer}>
-          <h2>The Problem Hotels Face Today</h2>
-          <div className={styles.statsGrid}>
-            <div className={styles.statCard}>
-              <div className={styles.statNumber}>73%</div>
-              <p>of hotel guests expect instant responses to their questions<sup>*</sup></p>
-            </div>
-            <div className={styles.statCard}>
-              <div className={styles.statNumber}>40%</div>
-              <p>of front desk staff time spent on repetitive FAQs<sup>*</sup></p>
-            </div>
-            <div className={styles.statCard}>
-              <div className={styles.statNumber}>$62B</div>
-              <p>annual loss from poor guest communication in hospitality<sup>*</sup></p>
-            </div>
-            <div className={styles.statCard}>
-              <div className={styles.statNumber}>87%</div>
-              <p>of travelers would rebook at hotels with 24/7 instant support<sup>*</sup></p>
-            </div>
+      {/* Modal Popup */}
+      {isModalOpen && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.modalClose} onClick={closeModal}>×</button>
+            <h2 className={styles.modalTitle}>Join the Waitlist</h2>
+            <p className={styles.modalSubtitle}>Be among the first 50 hotels to experience GetHotelAI</p>
+            
+            {formStatus === "success" ? (
+              <div className={styles.successMessage}>
+                ✓ Thank you for joining! We'll be in touch soon.
+              </div>
+            ) : (
+              <form onSubmit={handleFormSubmit} className={styles.modalForm}>
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>Full Name *</label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    required
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="John Doe"
+                  />
+                </div>
+                
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>Email Address *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="john@hotel.com"
+                  />
+                </div>
+                
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>Hotel Name *</label>
+                  <input
+                    type="text"
+                    name="hotelName"
+                    required
+                    value={formData.hotelName}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="Grand Plaza Hotel"
+                  />
+                </div>
+                
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>Your Role *</label>
+                    <select
+                      name="hotelRole"
+                      required
+                      value={formData.hotelRole}
+                      onChange={handleInputChange}
+                      className={styles.formSelect}
+                    >
+                      <option value="">Select role</option>
+                      <option value="owner">Hotel Owner</option>
+                      <option value="gm">General Manager</option>
+                      <option value="frontdesk">Front Desk Manager</option>
+                      <option value="revenue">Revenue Manager</option>
+                      <option value="tech">IT Director</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>Hotel Size *</label>
+                    <select
+                      name="hotelSize"
+                      required
+                      value={formData.hotelSize}
+                      onChange={handleInputChange}
+                      className={styles.formSelect}
+                    >
+                      <option value="">Select size</option>
+                      <option value="1-20">Boutique (1-20 rooms)</option>
+                      <option value="21-50">Small (21-50 rooms)</option>
+                      <option value="51-150">Medium (51-150 rooms)</option>
+                      <option value="151-300">Large (151-300 rooms)</option>
+                      <option value="300+">Grand (300+ rooms)</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>Phone Number (Optional)</label>
+                  <input
+                    type="tel"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="+1 234 567 8900"
+                  />
+                </div>
+                
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>Message / Specific Needs (Optional)</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={styles.formTextarea}
+                    placeholder="Tell us about your hotel's specific needs..."
+                    rows="3"
+                  />
+                </div>
+                
+                <button 
+                  type="submit" 
+                  className={styles.submitButton}
+                  disabled={formStatus === "loading"}
+                >
+                  {formStatus === "loading" ? "Submitting..." : "Join Waitlist →"}
+                </button>
+                
+                <p className={styles.formNote}>
+                  We'll notify you once GetHotelAI launches. No spam, just updates.
+                </p>
+              </form>
+            )}
           </div>
-          <p className={styles.statsFootnote}>*Sources: Hospitality Technology Survey (2024), Cornell Hotel Research, McKinsey Travel Report</p>
         </div>
-      </section>
+      )}
 
       {/* Philosophy Section */}
       <section ref={philosophyRef} className={styles.philosophy}>
@@ -155,207 +324,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PMS Integrations Section */}
-      <section ref={integrationsRef} className={styles.integrations}>
-        <h2>Works With Your Existing Stack</h2>
-        <p className={styles.integrationsSubhead}>No rip and replace. We integrate with leading PMS systems.</p>
-        <div className={styles.pmsLogos}>
-          <span>Oracle Opera</span>
-          <span>CloudBeds</span>
-          <span>Mews</span>
-          <span>Apaleo</span>
-          <span>RoomRaccoon</span>
-          <span>Stayntouch</span>
-          <span>IDeaS</span>
-          <span>Duetto</span>
-        </div>
-        <div className={styles.pmsLogosSecond}>
-          <span>Global</span>
-          <span>India: IDS Next</span>
-          <span>India: WinHms</span>
-          <span>India: Shreeji PMS</span>
-          <span>Custom API</span>
-        </div>
-        <p className={styles.integrationsNote}>✓ Custom integration available for any PMS with API. We work with your tech team.</p>
-      </section>
-
-      {/* Architecture Section */}
-      <section className={styles.architecture}>
-        <h2>Built for Global Hospitality</h2>
-        <p className={styles.architectureSubhead}>Enterprise-grade infrastructure that most AI tools ignore</p>
-        <div className={styles.architectureGrid}>
-          <div className={styles.architectureCard}>
-            <div className={styles.architectureIcon}>🎮</div>
-            <h3>Control Plane</h3>
-            <p>Global orchestration. Intent routing. Model selection. Load balancing across regions.</p>
-            <ul>
-              <li>✓ Centralized model management</li>
-              <li>✓ Real-time failover</li>
-              <li>✓ Unified analytics</li>
-            </ul>
-          </div>
-          <div className={styles.architectureCard}>
-            <div className={styles.architectureIcon}>🌍</div>
-            <h3>Regional Planes</h3>
-            <p>Deployed in US, EU, Asia, Middle East. Guest requests stay in their region.</p>
-            <ul>
-              <li>✓ <strong>&lt;100ms latency</strong> for any hotel globally</li>
-              <li>✓ Local data compliance (GDPR, CCPA, PDPA)</li>
-              <li>✓ No cross-region bottlenecks</li>
-            </ul>
-          </div>
-          <div className={styles.architectureCard}>
-            <div className={styles.architectureIcon}>⚡</div>
-            <h3>Hot Path Optimization</h3>
-            <p>Frequently used intents (booking, cancellation) cached and routed instantly.</p>
-            <ul>
-              <li>✓ 10x faster for common requests</li>
-              <li>✓ Auto-scaling during peak hours</li>
-              <li>✓ 99.99% uptime SLA</li>
-            </ul>
-          </div>
-        </div>
-        <div className={styles.architectureNote}>
-          💡 Most hotel AI runs on single-region servers. Your guests in Tokyo wait 2-3 seconds. We fixed that.
-        </div>
-      </section>
-
-      {/* ROI Value Prop (No Calculator) */}
-      <section className={styles.roiValue}>
-        <div className={styles.roiContainer}>
-          <h2>Real ROI for Your Hotel</h2>
-          <div className={styles.roiGrid}>
-            <div className={styles.roiItem}>
-              <div className={styles.roiIcon}>💰</div>
-              <h3>Reduce Staff Costs</h3>
-              <p>AI handles 80% of repetitive queries. Your team focuses on VIPs and complex issues.</p>
-            </div>
-            <div className={styles.roiItem}>
-              <div className={styles.roiIcon}>📈</div>
-              <h3>Increase Upsells</h3>
-              <p>Proactive suggestions for late checkout, room upgrades, and dining reservations.</p>
-            </div>
-            <div className={styles.roiItem}>
-              <div className={styles.roiIcon}>⭐</div>
-              <h3>Improve Reviews</h3>
-              <p>24/7 instant responses = happier guests = better online ratings.</p>
-            </div>
-          </div>
-          <p className={styles.roiNote}>Pricing: Simple per-booking model. No long-term contracts. Pay for what you use.</p>
-        </div>
-      </section>
-
-      {/* Roadmap Section */}
-      <section ref={roadmapRef} className={styles.roadmap}>
-        <h2>Roadmap to Human-like Hospitality</h2>
-        <p className={styles.roadmapSubhead}>We're building the most human AI for hotels. Here's how.</p>
-        <div className={styles.timeline}>
-          <div className={styles.timelineItem}>
-            <div className={styles.timelineDot}></div>
-            <div className={styles.timelineContent}>
-              <span className={styles.badge}>Q3 2025</span>
-              <h3>Text Concierge Launch</h3>
-              <p>Bookings, cancellations, refunds, FAQs. Intent detection at 90% accuracy. Human handoff at 85% confidence.</p>
-              <ul>
-                <li>✅ NLP-based intent recognition</li>
-                <li>✅ Full RBAC (5 permission levels)</li>
-                <li>✅ Real-time handoff to support team</li>
-                <li>✅ Multi-region control plane ready</li>
-                <li>✅ PMS integration (Oracle, CloudBeds, Mews)</li>
-              </ul>
-            </div>
-          </div>
-          <div className={styles.timelineItem}>
-            <div className={styles.timelineDot}></div>
-            <div className={styles.timelineContent}>
-              <span className={styles.badge}>Q4 2025</span>
-              <h3>Voice Integration</h3>
-              <p>Phone calls, room phones, voice assistants. Same AI, now spoken.</p>
-              <ul>
-                <li>🎤 In-room voice commands ("Hey Hotel...")</li>
-                <li>�� Phone call handling (IVR replacement)</li>
-                <li>🗣️ Multi-language support</li>
-              </ul>
-            </div>
-          </div>
-          <div className={styles.timelineItem}>
-            <div className={styles.timelineDot}></div>
-            <div className={styles.timelineContent}>
-              <span className={styles.badge}>Q1 2026</span>
-              <h3>Predictive Hospitality</h3>
-              <p>AI learns guest preferences. Proactive upsells. "Welcome back! Your usual room type is available."</p>
-              <ul>
-                <li>📊 Guest preference memory</li>
-                <li>💡 Proactive suggestions (late checkout, upgrades)</li>
-                <li>📈 Revenue optimization</li>
-              </ul>
-            </div>
-          </div>
-          <div className={styles.timelineItem}>
-            <div className={styles.timelineDot}></div>
-            <div className={styles.timelineContent}>
-              <span className={styles.badge}>Q2 2026</span>
-              <h3>Multi-Property Intelligence</h3>
-              <p>Analytics across hotel groups. Train AI on YOUR brand's voice and service standards.</p>
-              <ul>
-                <li>�� Cross-property analytics</li>
-                <li>🎨 Custom AI personality (luxury, budget, boutique)</li>
-                <li>🤝 Staff training mode</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* For Hotels Section */}
-      <section ref={hotelsRef} className={styles.forHotels}>
-        <h2>Built <span className={styles.gradientText}>For Hotels</span>, By People Who Care</h2>
-        <div className={styles.hotelsGrid}>
-          <div className={styles.hotelsCard}>
-            <div className={styles.hotelsIcon}>🏨</div>
-            <h3>Your Website. Your Brand.</h3>
-            <p>Guest never leaves your domain. No third-party chat widgets. No WhatsApp forwarding. Everything happens on YOUR site.</p>
-          </div>
-          <div className={styles.hotelsCard}>
-            <div className={styles.hotelsIcon}>⚡</div>
-            <h3>Global Speed Guarantee</h3>
-            <p>Multi-region deployment means your Dubai, Singapore, and London guests all get &lt;100ms response times. Most AI tools ignore this. We built for it.</p>
-          </div>
-          <div className={styles.hotelsCard}>
-            <div className={styles.hotelsIcon}>🔒</div>
-            <h3>You Stay in Control</h3>
-            <p>Full RBAC. Audit logs. Approve all AI actions. Your data never leaves your region (GDPR, CCPA compliant).</p>
-          </div>
-          <div className={styles.hotelsCard}>
-            <div className={styles.hotelsIcon}>🤝</div>
-            <h3>We Work WITH Your Team</h3>
-            <p>AI handles 80% of repetitive queries. Your staff handles VIPs and complex issues. No layoffs. Just efficiency.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Hotels Choose Us */}
-      <section className={styles.whyUs}>
-        <h2>Why Hoteliers Trust Us</h2>
-        <div className={styles.whyGrid}>
-          <div className={styles.whyCard}>
-            <div className={styles.whyNumber}>1</div>
-            <h3>No "Robotic" Responses</h3>
-            <p>Our AI sounds like your best front desk agent. Empathetic. Fast. Human-like.</p>
-          </div>
-          <div className={styles.whyCard}>
-            <div className={styles.whyNumber}>2</div>
-            <h3>Works WITH Your Team</h3>
-            <p>AI handles 80% of repetitive queries. Humans focus on complex issues and VIP guests.</p>
-          </div>
-          <div className={styles.whyCard}>
-            <div className={styles.whyNumber}>3</div>
-            <h3>Global Infrastructure</h3>
-            <p>Most hotel AI runs on US servers only. We deploy regional planes. Your guests get sub-100ms responses anywhere.</p>
-          </div>
-        </div>
-      </section>
-
       {/* Waitlist Section */}
       <section className={styles.waitlist}>
         <div className={styles.waitlistContainer}>
@@ -366,7 +334,7 @@ export default function Home() {
               ✓ You're on the list! We'll reach out.
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className={styles.waitlistForm}>
+            <form onSubmit={handleSimpleSubmit} className={styles.waitlistForm}>
               <input
                 type="email"
                 required
@@ -394,85 +362,3 @@ export default function Home() {
     </div>
   );
 }
-
-      {/* Why Most Hotel AI Fails - Pain Point Section */}
-      <section className={styles.painPoints}>
-        <div className={styles.painContainer}>
-          <h2>Why Most Hotel AI Agents Fail</h2>
-          <p className={styles.painSubhead}>And why hotels hate them (even though they need them)</p>
-          
-          <div className={styles.painGrid}>
-            <div className={styles.painCard}>
-              <div className={styles.painIcon}>🤖</div>
-              <h3>They Kill the Human Touch</h3>
-              <p>Guests feel trapped talking to robots. No empathy. No understanding. Just "I don't understand. Please rephrase."</p>
-              <div className={styles.painResult}>❌ Result: Frustrated guests. Bad reviews.</div>
-            </div>
-
-            <div className={styles.painCard}>
-              <div className={styles.painIcon}>🔄</div>
-              <h3>Infinite "I Don't Understand" Loops</h3>
-              <p>Most bots use keyword matching. Say "I need to leave early" and they respond with pool hours. Zero context.</p>
-              <div className={styles.painResult}>❌ Result: Guests give up. Call front desk anyway.</div>
-            </div>
-
-            <div className={styles.painCard}>
-              <div className={styles.painIcon}>🐌</div>
-              <h3>Slow Global Response Times</h3>
-              <p>Single-region servers mean guests in Asia wait 3-5 seconds for every response. Unacceptable.</p>
-              <div className={styles.painResult}>❌ Result: Guests abandon chat. Lost upsell revenue.</div>
-            </div>
-
-            <div className={styles.painCard}>
-              <div className={styles.painIcon}>🔒</div>
-              <h3>No Real Integrations</h3>
-              <p>They can answer questions but can't take action. "I'd like late checkout" → "Please call front desk."</p>
-              <div className={styles.painResult}>❌ Result: AI is useless. Staff still does everything.</div>
-            </div>
-
-            <div className={styles.painCard}>
-              <div className={styles.painIcon}>👥</div>
-              <h3>No Human Handoff</h3>
-              <p>When AI fails, there's no escape. Guests repeat themselves to 3 different humans. Context lost.</p>
-              <div className={styles.painResult}>❌ Result: Double the work for staff. Angry guests.</div>
-            </div>
-
-            <div className={styles.painCard}>
-              <div className={styles.painIcon}>📊</div>
-              <h3>No ROI Proof</h3>
-              <p>Hotels pay $500-2000/month but can't measure impact. No analytics. No staff time savings tracked.</p>
-              <div className={styles.painResult}>❌ Result: Cancel subscription after 3 months.</div>
-            </div>
-          </div>
-
-          <div className={styles.painVsOur}>
-            <div className={styles.painVsColumn}>
-              <h3>😤 What Hotels Get Today</h3>
-              <ul>
-                <li>Robotic, scripted responses</li>
-                <li>Can't take real actions</li>
-                <li>Slow global performance</li>
-                <li>No human handoff</li>
-                <li>Generic, one-size-fits-all</li>
-              </ul>
-            </div>
-            <div className={styles.painVsArrow}>→</div>
-            <div className={styles.painVsColumn}>
-              <h3>✨ What GetHotelAI Delivers</h3>
-              <ul>
-                <li>Human-like, empathetic AI</li>
-                <li>Full actions (bookings, service, etc.)</li>
-                <li>&lt;100ms global response</li>
-                <li>3-second human handoff</li>
-                <li>Trainable to YOUR brand voice</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className={styles.painCallout}>
-            <span>💡</span>
-            <strong>We don't build chatbots. We build digital concierges that work WITH your team.</strong>
-            <span>🎯</span>
-          </div>
-        </div>
-      </section>
