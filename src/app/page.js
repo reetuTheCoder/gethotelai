@@ -394,3 +394,85 @@ export default function Home() {
     </div>
   );
 }
+
+      {/* Why Most Hotel AI Fails - Pain Point Section */}
+      <section className={styles.painPoints}>
+        <div className={styles.painContainer}>
+          <h2>Why Most Hotel AI Agents Fail</h2>
+          <p className={styles.painSubhead}>And why hotels hate them (even though they need them)</p>
+          
+          <div className={styles.painGrid}>
+            <div className={styles.painCard}>
+              <div className={styles.painIcon}>🤖</div>
+              <h3>They Kill the Human Touch</h3>
+              <p>Guests feel trapped talking to robots. No empathy. No understanding. Just "I don't understand. Please rephrase."</p>
+              <div className={styles.painResult}>❌ Result: Frustrated guests. Bad reviews.</div>
+            </div>
+
+            <div className={styles.painCard}>
+              <div className={styles.painIcon}>🔄</div>
+              <h3>Infinite "I Don't Understand" Loops</h3>
+              <p>Most bots use keyword matching. Say "I need to leave early" and they respond with pool hours. Zero context.</p>
+              <div className={styles.painResult}>❌ Result: Guests give up. Call front desk anyway.</div>
+            </div>
+
+            <div className={styles.painCard}>
+              <div className={styles.painIcon}>🐌</div>
+              <h3>Slow Global Response Times</h3>
+              <p>Single-region servers mean guests in Asia wait 3-5 seconds for every response. Unacceptable.</p>
+              <div className={styles.painResult}>❌ Result: Guests abandon chat. Lost upsell revenue.</div>
+            </div>
+
+            <div className={styles.painCard}>
+              <div className={styles.painIcon}>🔒</div>
+              <h3>No Real Integrations</h3>
+              <p>They can answer questions but can't take action. "I'd like late checkout" → "Please call front desk."</p>
+              <div className={styles.painResult}>❌ Result: AI is useless. Staff still does everything.</div>
+            </div>
+
+            <div className={styles.painCard}>
+              <div className={styles.painIcon}>👥</div>
+              <h3>No Human Handoff</h3>
+              <p>When AI fails, there's no escape. Guests repeat themselves to 3 different humans. Context lost.</p>
+              <div className={styles.painResult}>❌ Result: Double the work for staff. Angry guests.</div>
+            </div>
+
+            <div className={styles.painCard}>
+              <div className={styles.painIcon}>📊</div>
+              <h3>No ROI Proof</h3>
+              <p>Hotels pay $500-2000/month but can't measure impact. No analytics. No staff time savings tracked.</p>
+              <div className={styles.painResult}>❌ Result: Cancel subscription after 3 months.</div>
+            </div>
+          </div>
+
+          <div className={styles.painVsOur}>
+            <div className={styles.painVsColumn}>
+              <h3>😤 What Hotels Get Today</h3>
+              <ul>
+                <li>Robotic, scripted responses</li>
+                <li>Can't take real actions</li>
+                <li>Slow global performance</li>
+                <li>No human handoff</li>
+                <li>Generic, one-size-fits-all</li>
+              </ul>
+            </div>
+            <div className={styles.painVsArrow}>→</div>
+            <div className={styles.painVsColumn}>
+              <h3>✨ What GetHotelAI Delivers</h3>
+              <ul>
+                <li>Human-like, empathetic AI</li>
+                <li>Full actions (bookings, service, etc.)</li>
+                <li>&lt;100ms global response</li>
+                <li>3-second human handoff</li>
+                <li>Trainable to YOUR brand voice</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className={styles.painCallout}>
+            <span>💡</span>
+            <strong>We don't build chatbots. We build digital concierges that work WITH your team.</strong>
+            <span>🎯</span>
+          </div>
+        </div>
+      </section>

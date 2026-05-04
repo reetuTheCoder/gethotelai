@@ -1292,3 +1292,188 @@
     gap: 30px;
   }
 }
+
+/* Pain Points Section - Why Most AI Fails */
+.painPoints {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #0D0F1B 0%, #1a0d00 100%);
+  border-top: 2px solid rgba(255, 102, 0, 0.3);
+  border-bottom: 2px solid rgba(255, 102, 0, 0.3);
+}
+
+.painContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.painPoints h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.painSubhead {
+  text-align: center;
+  color: #B5B0BC;
+  margin-bottom: 3rem;
+  font-size: 1.2rem;
+}
+
+.painGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.painCard {
+  background: rgba(28, 31, 42, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.painCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.painIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.painCard h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.painCard p {
+  color: #B5B0BC;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.painResult {
+  background: rgba(255, 68, 68, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: #ff8888;
+  font-size: 0.85rem;
+  border-left: 3px solid #ff4444;
+}
+
+.painVsOur {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(255,102,0,0.1) 0%, rgba(154,245,10,0.1) 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(255,102,0,0.3);
+}
+
+.painVsColumn {
+  flex: 1;
+  min-width: 250px;
+}
+
+.painVsColumn h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.painVsColumn:first-child h3 {
+  color: #ff8888;
+}
+
+.painVsColumn:last-child h3 {
+  color: var(--secondary-color);
+}
+
+.painVsColumn ul {
+  list-style: none;
+  padding: 0;
+}
+
+.painVsColumn li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #ccc;
+}
+
+.painVsColumn:first-child li::before {
+  content: "✗";
+  position: absolute;
+  left: 0;
+  color: #ff4444;
+}
+
+.painVsColumn:last-child li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--secondary-color);
+}
+
+.painVsArrow {
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+.painCallout {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 102, 0, 0.15);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 102, 0, 0.3);
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.painCallout span {
+  font-size: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .painPoints {
+    padding: 60px 20px;
+  }
+  
+  .painPoints h2 {
+    font-size: 2rem;
+  }
+  
+  .painGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .painVsOur {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+  
+  .painVsArrow {
+    transform: rotate(90deg);
+    justify-content: center;
+  }
+  
+  .painCallout {
+    font-size: 0.9rem;
+  }
+}
