@@ -308,6 +308,12 @@ export default function Home() {
         </div>
         <div className={styles.bannerImage}>
           <div className={styles.imagePlaceholder}>
+            <Image
+              src="/banners.svg"
+              alt="GetHotelAI banner"
+              width={550}
+              height={500}
+            />
             <div className={styles.chatPreview}>
               "I've cancelled your reservation. Refund will process in 3-5 days.
               Need anything else?"

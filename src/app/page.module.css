@@ -98,7 +98,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: white; 
+  color: white;
 }
 
 .menuButton:hover {
@@ -113,7 +113,7 @@
   margin: 3px 0;
   transition: all 0.3s ease;
   border-radius: 2px;
-   background-color: currentColor; 
+  background-color: currentColor;
 }
 
 .menuButtonActive .burgerIcon:nth-child(1) {
@@ -228,21 +228,22 @@
 
 .bannerImage .imagePlaceholder {
   width: 100%;
-  max-width: 300px;
+  /* max-width: 500px; */
   height: auto;
-  aspect-ratio: 1 / 1;
-  background: linear-gradient(
+  /* aspect-ratio: 1 / 1; */
+  /* background: linear-gradient(
     135deg,
     rgba(255, 102, 0, 0.1) 0%,
     rgba(154, 245, 10, 0.1) 100%
-  );
+  ); */
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 16px;
   font-size: 1rem;
   color: #888;
-  border: 1px solid rgba(255, 102, 0, 0.3);
+  /* border: 1px solid rgba(255, 102, 0, 0.3); */
+  flex-direction: column;
 }
 
 /* Trust Badges */
@@ -263,13 +264,14 @@
 }
 
 .chatPreview {
-  font-size: 0.75rem;
-  margin-top: 1rem;
+  font-size: 1rem;
+  /* margin-top: 1rem; */
   background: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem;
+  padding: 1.5rem;
   border-radius: 8px;
-  max-width: 280px;
+  max-width: 470px;
   line-height: 1.4;
+  text-align: center;
 }
 
 /* Features Section */
@@ -302,7 +304,9 @@
   padding: 32px 24px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .featureCard:hover {
@@ -748,7 +752,10 @@ body.menuOpen {
   .container {
     padding: 0px 2rem;
   }
-
+  .lightBanner .chatPreview {
+    color: #666;
+    background-color: #0000000d;
+  }
   .navbar {
     flex-wrap: wrap;
   }
@@ -838,7 +845,7 @@ body.menuOpen {
 
   .banner {
     flex-direction: column;
-    padding: 2rem 1rem;
+    /* padding: 2rem 1rem; */
     text-align: center;
   }
 
@@ -933,11 +940,19 @@ body.menuOpen {
     width: 280px;
     padding: 70px 1.5rem 1.5rem 1.5rem;
   }
+  .lightBanner .chatPreview {
+    color: #666;
+    background-color: transparent;
+  }
 }
 
 @media (max-width: 480px) {
   .bannerText h1 {
     font-size: 1.75rem;
+  }
+  .lightBanner .chatPreview {
+    color: #666;
+    background-color: transparent;
   }
 
   .features h2,
@@ -1038,6 +1053,10 @@ body.menuOpen {
   .menuButton {
     display: none !important;
   }
+  .lightBanner .chatPreview {
+    color: #666;
+    background-color: transparent;
+  }
 
   /* Hide mobile Coming Soon button on desktop */
   .mobileComingSoon {
@@ -1053,7 +1072,7 @@ body.menuOpen {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 4rem 2rem;
+    /* padding: 4rem 2rem; */
   }
 
   .bannerText h1 {
