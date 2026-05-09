@@ -1,5 +1,6 @@
 .container {
   min-height: 100vh;
+  padding: 0px 4rem;
 }
 
 /* Navbar Styles */
@@ -16,8 +17,18 @@
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0px;
 }
 
+.logo h3 {
+  font-size: 1em;
+  margin: 0px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-left: -10px;
+}
 .navItems {
   list-style: none;
   display: flex;
@@ -115,14 +126,18 @@
 .bannerImage .imagePlaceholder {
   width: 300px;
   height: 300px;
-  background: linear-gradient(135deg, rgba(255,102,0,0.1) 0%, rgba(154,245,10,0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 102, 0, 0.1) 0%,
+    rgba(154, 245, 10, 0.1) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 16px;
   font-size: 1rem;
   color: #888;
-  border: 1px solid rgba(255,102,0,0.3);
+  border: 1px solid rgba(255, 102, 0, 0.3);
 }
 
 .aiPreview {
@@ -131,14 +146,19 @@
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 /* Features Section */
 .features {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
   text-align: center;
 }
 
@@ -165,7 +185,9 @@
   padding: 32px 24px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .featureCard:hover {
@@ -185,14 +207,14 @@
 }
 
 .featureCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
 }
 
 /* Waitlist Section */
 .waitlist {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #131626 0%, #0D0F1B 100%);
+  background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
   text-align: center;
 }
 
@@ -207,7 +229,7 @@
 }
 
 .waitlistContainer p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 32px;
 }
 
@@ -267,7 +289,7 @@
   text-align: center;
   padding: 32px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  color: #B5B0BC;
+  color: #b5b0bc;
 }
 
 /* Responsive */
@@ -275,32 +297,32 @@
   .features {
     padding: 60px 20px;
   }
-  
+
   .features h2 {
     font-size: 2rem;
   }
-  
+
   .featuresGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .waitlistForm {
     flex-direction: column;
   }
-  
+
   .emailInput {
     width: 100%;
   }
-  
+
   .bannerText h1 {
     font-size: 2rem;
   }
-  
+
   .navbar {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .navItems {
     gap: 1rem;
   }
@@ -325,7 +347,7 @@
 .chatPreview {
   font-size: 0.75rem;
   margin-top: 1rem;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   padding: 0.5rem;
   border-radius: 8px;
   max-width: 250px;
@@ -334,7 +356,7 @@
 /* Philosophy Section */
 .philosophy {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
 }
 
 .philosophyContainer {
@@ -350,7 +372,7 @@
 
 .philosophySubhead {
   text-align: center;
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 3rem;
   font-size: 1.2rem;
 }
@@ -380,14 +402,14 @@
 }
 
 .philosophyCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
 }
 
 /* Roadmap Section */
 .roadmap {
   padding: 80px 40px;
-  background: #0D0F1B;
+  background: #0d0f1b;
 }
 
 .roadmap h2 {
@@ -398,7 +420,7 @@
 
 .roadmapSubhead {
   text-align: center;
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 3rem;
 }
 
@@ -409,7 +431,7 @@
 }
 
 .timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 20px;
   top: 0;
@@ -457,7 +479,7 @@
 }
 
 .timelineContent p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 1rem;
 }
 
@@ -474,7 +496,7 @@
 /* Why Us Section */
 .whyUs {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #131626 0%, #0D0F1B 100%);
+  background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
 }
 
 .whyUs h2 {
@@ -520,28 +542,30 @@
 }
 
 .whyCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
 }
 
 /* Responsive updates */
 @media (max-width: 768px) {
-  .philosophy, .roadmap, .whyUs {
+  .philosophy,
+  .roadmap,
+  .whyUs {
     padding: 60px 20px;
   }
-  
+
   .timeline::before {
     left: 15px;
   }
-  
+
   .timelineItem {
     padding-left: 45px;
   }
-  
+
   .timelineDot {
     left: 7px;
   }
-  
+
   .trustBadges {
     justify-content: center;
   }
@@ -550,7 +574,7 @@
 /* Architecture Section */
 .architecture {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
 }
 
 .architecture h2 {
@@ -561,7 +585,7 @@
 
 .architectureSubhead {
   text-align: center;
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 3rem;
 }
 
@@ -598,7 +622,7 @@
 }
 
 .architectureCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -628,7 +652,7 @@
 /* For Hotels Section */
 .forHotels {
   padding: 80px 40px;
-  background: #0D0F1B;
+  background: #0d0f1b;
 }
 
 .forHotels h2 {
@@ -670,21 +694,24 @@
 }
 
 .hotelsCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
 }
 
 /* Responsive updates */
 @media (max-width: 768px) {
-  .architecture, .forHotels {
+  .architecture,
+  .forHotels {
     padding: 60px 20px;
   }
-  
-  .architecture h2, .forHotels h2 {
+
+  .architecture h2,
+  .forHotels h2 {
     font-size: 2rem;
   }
-  
-  .architectureGrid, .hotelsGrid {
+
+  .architectureGrid,
+  .hotelsGrid {
     grid-template-columns: 1fr;
   }
 }
@@ -708,7 +735,7 @@
 .chatPreview {
   font-size: 0.75rem;
   margin-top: 1rem;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   padding: 0.5rem;
   border-radius: 8px;
   max-width: 280px;
@@ -718,7 +745,7 @@
 /* Philosophy Section */
 .philosophy {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
 }
 
 .philosophyContainer {
@@ -734,7 +761,7 @@
 
 .philosophySubhead {
   text-align: center;
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 3rem;
   font-size: 1.2rem;
 }
@@ -770,16 +797,16 @@
 }
 
 .philosophyCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
 }
 
 /* Architecture Section */
 .architecture {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .architecture h2 {
@@ -790,7 +817,7 @@
 
 .architectureSubhead {
   text-align: center;
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 3rem;
   font-size: 1.1rem;
 }
@@ -829,7 +856,7 @@
 }
 
 .architectureCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -861,7 +888,7 @@
 /* Roadmap Section */
 .roadmap {
   padding: 80px 40px;
-  background: #0D0F1B;
+  background: #0d0f1b;
 }
 
 .roadmap h2 {
@@ -872,7 +899,7 @@
 
 .roadmapSubhead {
   text-align: center;
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 3rem;
   font-size: 1.1rem;
 }
@@ -884,7 +911,7 @@
 }
 
 .timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 20px;
   top: 0;
@@ -934,7 +961,7 @@
 }
 
 .timelineContent p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 1rem;
   line-height: 1.5;
 }
@@ -953,7 +980,7 @@
 /* For Hotels Section */
 .forHotels {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #131626 0%, #0D0F1B 100%);
+  background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
 }
 
 .forHotels h2 {
@@ -995,14 +1022,14 @@
 }
 
 .hotelsCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
 }
 
 /* Why Us Section */
 .whyUs {
   padding: 80px 40px;
-  background: #0D0F1B;
+  background: #0d0f1b;
 }
 
 .whyUs h2 {
@@ -1048,45 +1075,56 @@
 }
 
 .whyCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
 }
 
 /* Responsive Updates */
 @media (max-width: 768px) {
-  .philosophy, .architecture, .roadmap, .forHotels, .whyUs {
+  .philosophy,
+  .architecture,
+  .roadmap,
+  .forHotels,
+  .whyUs {
     padding: 60px 20px;
   }
-  
-  .philosophy h2, .architecture h2, .roadmap h2, .forHotels h2, .whyUs h2 {
+
+  .philosophy h2,
+  .architecture h2,
+  .roadmap h2,
+  .forHotels h2,
+  .whyUs h2 {
     font-size: 2rem;
   }
-  
+
   .timeline::before {
     left: 15px;
   }
-  
+
   .timelineItem {
     padding-left: 45px;
   }
-  
+
   .timelineDot {
     left: 7px;
   }
-  
+
   .trustBadges {
     justify-content: center;
   }
-  
+
   .chatPreview {
     font-size: 0.7rem;
     max-width: 240px;
   }
-  
-  .philosophyGrid, .architectureGrid, .hotelsGrid, .whyGrid {
+
+  .philosophyGrid,
+  .architectureGrid,
+  .hotelsGrid,
+  .whyGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .architectureCard ul li {
     font-size: 0.85rem;
   }
@@ -1097,7 +1135,7 @@
   .chatPreview {
     display: none;
   }
-  
+
   .trustBadges span {
     font-size: 0.7rem;
   }
@@ -1106,9 +1144,9 @@
 /* Stats Section - Real Industry Data */
 .stats {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #131626 0%, #0D0F1B 100%);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .statsContainer {
@@ -1148,7 +1186,7 @@
 }
 
 .statCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   font-size: 0.9rem;
   line-height: 1.4;
 }
@@ -1163,7 +1201,7 @@
 /* Integrations Section */
 .integrations {
   padding: 80px 40px;
-  background: #0D0F1B;
+  background: #0d0f1b;
   text-align: center;
 }
 
@@ -1173,7 +1211,7 @@
 }
 
 .integrationsSubhead {
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 3rem;
 }
 
@@ -1185,7 +1223,8 @@
   margin-bottom: 1.5rem;
 }
 
-.pmsLogos span, .pmsLogosSecond span {
+.pmsLogos span,
+.pmsLogosSecond span {
   padding: 0.5rem 1.5rem;
   background: rgba(28, 31, 42, 0.6);
   border-radius: 40px;
@@ -1194,7 +1233,8 @@
   transition: all 0.3s ease;
 }
 
-.pmsLogos span:hover, .pmsLogosSecond span:hover {
+.pmsLogos span:hover,
+.pmsLogosSecond span:hover {
   border-color: var(--primary-color);
   transform: translateY(-2px);
 }
@@ -1216,7 +1256,7 @@
 /* ROI Value Section (No Calculator) */
 .roiValue {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #0D0F1B 0%, #131626 100%);
+  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
 }
 
 .roiContainer {
@@ -1252,7 +1292,7 @@
 }
 
 .roiItem p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
 }
 
@@ -1267,27 +1307,32 @@
 
 /* Responsive updates */
 @media (max-width: 768px) {
-  .stats, .integrations, .roiValue {
+  .stats,
+  .integrations,
+  .roiValue {
     padding: 60px 20px;
   }
-  
-  .stats h2, .integrations h2, .roiValue h2 {
+
+  .stats h2,
+  .integrations h2,
+  .roiValue h2 {
     font-size: 2rem;
   }
-  
+
   .statsGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .statNumber {
     font-size: 2.5rem;
   }
-  
-  .pmsLogos span, .pmsLogosSecond span {
+
+  .pmsLogos span,
+  .pmsLogosSecond span {
     font-size: 0.8rem;
     padding: 0.4rem 1rem;
   }
-  
+
   .roiGrid {
     gap: 30px;
   }
@@ -1296,7 +1341,7 @@
 /* Pain Points Section - Why Most AI Fails */
 .painPoints {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #0D0F1B 0%, #1a0d00 100%);
+  background: linear-gradient(135deg, #0d0f1b 0%, #1a0d00 100%);
   border-top: 2px solid rgba(255, 102, 0, 0.3);
   border-bottom: 2px solid rgba(255, 102, 0, 0.3);
 }
@@ -1315,7 +1360,7 @@
 
 .painSubhead {
   text-align: center;
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 3rem;
   font-size: 1.2rem;
 }
@@ -1353,7 +1398,7 @@
 }
 
 .painCard p {
-  color: #B5B0BC;
+  color: #b5b0bc;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -1374,9 +1419,13 @@
   gap: 30px;
   margin-bottom: 40px;
   padding: 40px;
-  background: linear-gradient(135deg, rgba(255,102,0,0.1) 0%, rgba(154,245,10,0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 102, 0, 0.1) 0%,
+    rgba(154, 245, 10, 0.1) 100%
+  );
   border-radius: 20px;
-  border: 1px solid rgba(255,102,0,0.3);
+  border: 1px solid rgba(255, 102, 0, 0.3);
 }
 
 .painVsColumn {
@@ -1454,25 +1503,25 @@
   .painPoints {
     padding: 60px 20px;
   }
-  
+
   .painPoints h2 {
     font-size: 2rem;
   }
-  
+
   .painGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .painVsOur {
     flex-direction: column;
     padding: 30px 20px;
   }
-  
+
   .painVsArrow {
     transform: rotate(90deg);
     justify-content: center;
   }
-  
+
   .painCallout {
     font-size: 0.9rem;
   }
@@ -1495,12 +1544,16 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modalContent {
-  background: linear-gradient(135deg, #131626 0%, #0D0F1B 100%);
+  background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
   border: 1px solid rgba(255, 102, 0, 0.3);
   border-radius: 20px;
   padding: 2rem;
@@ -1531,7 +1584,7 @@
   font-size: 2rem;
   background: none;
   border: none;
-  color: #B5B0BC;
+  color: #b5b0bc;
   cursor: pointer;
   transition: color 0.3s ease;
   line-height: 1;
@@ -1551,7 +1604,7 @@
 }
 
 .modalSubtitle {
-  color: #B5B0BC;
+  color: #b5b0bc;
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
 }
@@ -1580,7 +1633,9 @@
   font-weight: 500;
 }
 
-.formInput, .formSelect, .formTextarea {
+.formInput,
+.formSelect,
+.formTextarea {
   background: rgba(28, 31, 42, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
@@ -1590,13 +1645,16 @@
   transition: all 0.3s ease;
 }
 
-.formInput:focus, .formSelect:focus, .formTextarea:focus {
+.formInput:focus,
+.formSelect:focus,
+.formTextarea:focus {
   outline: none;
   border-color: var(--primary-color);
   background: rgba(28, 31, 42, 1);
 }
 
-.formInput::placeholder, .formTextarea::placeholder {
+.formInput::placeholder,
+.formTextarea::placeholder {
   color: #666;
 }
 
@@ -1632,13 +1690,237 @@
     padding: 1.5rem;
     width: 95%;
   }
-  
+
   .formRow {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .modalTitle {
     font-size: 1.5rem;
   }
+}
+
+/* Theme Toggle Button */
+.themeToggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.themeToggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Light Mode Styles */
+.lightContainer {
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.lightNavbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.lightNavbar .logo {
+  color: #1a1a1a;
+}
+
+.lightNavbar .navItem {
+  color: #333;
+}
+
+.lightNavbar .navItem:hover {
+  color: var(--primary-color);
+}
+
+.lightBanner {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+}
+
+.lightBanner .bannerText p {
+  color: #666;
+}
+
+.lightBanner .trustBadges span {
+  background: rgba(255, 102, 0, 0.1);
+  border-color: rgba(255, 102, 0, 0.3);
+  color: #333;
+}
+
+.lightPhilosophy {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.lightFeatures {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+}
+
+.lightWaitlist {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.lightCard {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.lightCard h3 {
+  color: var(--primary-color);
+}
+
+.lightCard p {
+  color: #666;
+}
+
+.lightFooter {
+  border-top: 1px solid #e0e0e0;
+  color: #666;
+}
+
+.lightModal {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  border: 1px solid rgba(255, 102, 0, 0.3);
+}
+
+.lightModal .formInput,
+.lightModal .formSelect,
+.lightModal .formTextarea {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.lightModal .formLabel {
+  color: #666;
+}
+
+.lightModal .modalSubtitle {
+  color: #888;
+}
+
+.lightModal .formNote {
+  color: #999;
+}
+
+/* Theme Toggle Button */
+.themeToggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.themeToggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Light Mode Styles */
+.lightContainer {
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.lightNavbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.lightNavbar .logo {
+  color: #1a1a1a;
+}
+
+.lightNavbar .navItem {
+  color: #333;
+}
+
+.lightNavbar .navItem:hover {
+  color: var(--primary-color);
+}
+
+.lightBanner {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+}
+
+.lightBanner .bannerText p {
+  color: #666;
+}
+
+.lightBanner .trustBadges span {
+  background: rgba(255, 102, 0, 0.1);
+  border-color: rgba(255, 102, 0, 0.3);
+  color: #333;
+}
+
+.lightPhilosophy {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.lightFeatures {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+}
+
+.lightWaitlist {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.lightCard {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.lightCard h3 {
+  color: var(--primary-color);
+}
+
+.lightCard p {
+  color: #666;
+}
+
+.lightFooter {
+  border-top: 1px solid #e0e0e0;
+  color: #666;
+}
+
+.lightModal {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  border: 1px solid rgba(255, 102, 0, 0.3);
+}
+
+.lightModal .formInput,
+.lightModal .formSelect,
+.lightModal .formTextarea {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.lightModal .formLabel {
+  color: #666;
+}
+
+.lightModal .modalSubtitle {
+  color: #888;
+}
+
+.lightModal .formNote {
+  color: #999;
 }

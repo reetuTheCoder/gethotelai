@@ -1,11 +1,13 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./page.module.css";
+import Image from "next/image";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -13,16 +15,39 @@ export default function Home() {
     hotelRole: "",
     hotelSize: "",
     phoneNumber: "",
-    message: ""
+    message: "",
   });
   const [formStatus, setFormStatus] = useState("idle");
-  
+
   // Refs for smooth scroll
   const featuresRef = useRef(null);
   const philosophyRef = useRef(null);
   const roadmapRef = useRef(null);
   const hotelsRef = useRef(null);
   const integrationsRef = useRef(null);
+
+  // Load theme preference from localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      setIsDarkMode(false);
+      document.body.classList.add("light-mode");
+    } else {
+      setIsDarkMode(true);
+      document.body.classList.remove("light-mode");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    if (!isDarkMode) {
+      localStorage.setItem("theme", "dark");
+      document.body.classList.remove("light-mode");
+    } else {
+      localStorage.setItem("theme", "light");
+      document.body.classList.add("light-mode");
+    }
+  };
 
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -41,7 +66,7 @@ export default function Home() {
       hotelRole: "",
       hotelSize: "",
       phoneNumber: "",
-      message: ""
+      message: "",
     });
     setFormStatus("idle");
   };
@@ -49,35 +74,73 @@ export default function Home() {
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
+  
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    setFormStatus("loading");
-    
-    // Log all form data to console
-    console.log("=== New Waitlist Signup ===");
-    console.log("Full Name:", formData.fullName);
-    console.log("Email:", formData.email);
-    console.log("Hotel Name:", formData.hotelName);
-    console.log("Role:", formData.hotelRole);
-    console.log("Hotel Size:", formData.hotelSize);
-    console.log("Phone:", formData.phoneNumber);
-    console.log("Message:", formData.message);
-    console.log("Timestamp:", new Date().toISOString());
-    console.log("==========================");
-    
-    // TODO: API call will be added here later
+  e.preventDefault();
+  setFormStatus("loading");
+
+  // Log all form data to console
+  console.log("=== New Waitlist Signup ===");
+  console.log("Full Name:", formData.fullName);
+  console.log("Email:", formData.email);
+  console.log("Hotel Name:", formData.hotelName);
+  console.log("Role:", formData.hotelRole);
+  console.log("Hotel Size:", formData.hotelSize);
+  console.log("Phone:", formData.phoneNumber);
+  console.log("Message:", formData.message);
+  console.log("Timestamp:", new Date().toISOString());
+  console.log("==========================");
+
+  try {
+    // Optional fake delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const fd = new FormData();
+
+    fd.append("email", formData.email);
+    fd.append("email_type", "JOIN_WAIT_LIST");
+    fd.append("to_ghai", "to_ghai");
+
+    fd.append("hotel_name", formData.hotelName || "");
+    fd.append("full_name", formData.fullName || "");
+    fd.append("phone", formData.phoneNumber || "");
+    fd.append("hotel_size", formData.hotelSize || "");
+    fd.append("message", formData.message || "");
+
+    const response = await fetch(
+      "https://email2.magicchat.io/prod/send_email",
+      {
+        method: "POST",
+        headers: {
+          "x-api-key": "justanything",
+          // Don't set Content-Type manually for FormData
+        },
+        body: fd,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    setFormStatus("success");
+
     setTimeout(() => {
-      setFormStatus("success");
-      setTimeout(() => {
-        closeModal();
-        alert("Thank you for joining the waitlist! We'll email you once GetHotelAI launches. 🏨✨");
-      }, 1500);
-    }, 1000);
-  };
+      closeModal();
+    }, 1500);
+
+  } catch (error) {
+    console.error("❌ Error sending waitlist email:", error);
+
+    setFormStatus("error");
+
+    alert("Something went wrong while joining the waitlist.");
+  }
+};
 
   const handleSimpleSubmit = async (e) => {
     e.preventDefault();
@@ -91,45 +154,102 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${!isDarkMode ? styles.lightContainer : ""}`}
+    >
       {/* Navbar */}
-      <nav className={styles.navbar}>
-        <div className={styles.logo}>🏨 GetHotelAI</div>
+      <nav
+        className={`${styles.navbar} ${!isDarkMode ? styles.lightNavbar : ""}`}
+      >
+        <div className={styles.logo}>
+          <Image
+            src="/getHoltelAiLogo.svg"
+            alt="GetHotelAI Logo"
+            width={80}
+            height={60}
+            priority
+          />
+          <h3>GetHotelAI</h3>
+        </div>
+
         <ul className={styles.navItems}>
-          <li className={styles.navItem} onClick={() => scrollToSection(featuresRef)}>Features</li>
-          <li className={styles.navItem} onClick={() => scrollToSection(philosophyRef)}>Philosophy</li>
-          <li className={styles.navItem} onClick={() => scrollToSection(roadmapRef)}>Roadmap</li>
-          <li className={styles.navItem} onClick={() => scrollToSection(integrationsRef)}>Integrations</li>
-          <li className={styles.navItem} onClick={() => scrollToSection(hotelsRef)}>For Hotels</li>
+          <li
+            className={styles.navItem}
+            onClick={() => scrollToSection(featuresRef)}
+          >
+            Features
+          </li>
+          <li
+            className={styles.navItem}
+            onClick={() => scrollToSection(philosophyRef)}
+          >
+            Philosophy
+          </li>
+          <li
+            className={styles.navItem}
+            onClick={() => scrollToSection(roadmapRef)}
+          >
+            Roadmap
+          </li>
+          <li
+            className={styles.navItem}
+            onClick={() => scrollToSection(integrationsRef)}
+          >
+            Integrations
+          </li>
+          <li
+            className={styles.navItem}
+            onClick={() => scrollToSection(hotelsRef)}
+          >
+            For Hotels
+          </li>
         </ul>
         <div className={styles.navIcons}>
+          <button className={styles.themeToggle} onClick={toggleTheme}>
+            {isDarkMode ? "☀️" : "🌙"}
+          </button>
           <button className={styles.btnDark}>Coming Soon →</button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className={styles.banner}>
+      <section
+        className={`${styles.banner} ${!isDarkMode ? styles.lightBanner : ""}`}
+      >
         <div className={styles.bannerText}>
-          <h1>AI that <span className={styles.gradientText}>disappears.</span><br />Hospitality that shines.</h1>
+          <h1>
+            AI that <span className={styles.gradientText}>disappears.</span>
+            <br />
+            Hospitality that shines.
+          </h1>
           <p>
-            Full concierge AI that handles bookings, cancellations, room service, and more.<br />
+            Full concierge AI that handles bookings, cancellations, room
+            service, and more.
+            <br />
             Handoff to humans in seconds. Never robotic. Always efficient.
           </p>
           <div className={styles.bannerButtons}>
-            <button className={styles.btnOrange} onClick={openModal}>Join Waitlist →</button>
+            <button className={styles.btnOrange} onClick={openModal}>
+              Join Waitlist →
+            </button>
             <button className={styles.btnDark}>See Demo</button>
           </div>
           <div className={styles.trustBadges}>
             <span>🔐 Enterprise-grade RBAC</span>
-            <span>🎤 Voice ready (Q4 2025)</span>
+            <span>🎤 Voice ready (Q4 2026)</span>
             <span>🤝 Human-in-the-loop</span>
             <span>🌍 Multi-region (Global &lt; 100ms)</span>
           </div>
         </div>
         <div className={styles.bannerImage}>
           <div className={styles.imagePlaceholder}>
-            <div className={styles.aiPreview}>🤖 <span>Human-like AI</span></div>
-            <div className={styles.chatPreview}>"I've cancelled your reservation. Refund will process in 3-5 days. Need anything else?"</div>
+            {/* <div className={styles.aiPreview}>
+              🤖 <span>Human-like AI</span>
+            </div> */}
+            <div className={styles.chatPreview}>
+              "I've cancelled your reservation. Refund will process in 3-5 days.
+              Need anything else?"
+            </div>
           </div>
         </div>
       </section>
@@ -137,11 +257,18 @@ export default function Home() {
       {/* Modal Popup */}
       {isModalOpen && (
         <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.modalClose} onClick={closeModal}>×</button>
+          <div
+            className={`${styles.modalContent} ${!isDarkMode ? styles.lightModal : ""}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className={styles.modalClose} onClick={closeModal}>
+              ×
+            </button>
             <h2 className={styles.modalTitle}>Join the Waitlist</h2>
-            <p className={styles.modalSubtitle}>Be among the first 50 hotels to experience GetHotelAI</p>
-            
+            <p className={styles.modalSubtitle}>
+              Be among the first 50 hotels to experience GetHotelAI
+            </p>
+
             {formStatus === "success" ? (
               <div className={styles.successMessage}>
                 ✓ Thank you for joining! We'll be in touch soon.
@@ -160,7 +287,7 @@ export default function Home() {
                     placeholder="John Doe"
                   />
                 </div>
-                
+
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Email Address *</label>
                   <input
@@ -173,7 +300,7 @@ export default function Home() {
                     placeholder="john@hotel.com"
                   />
                 </div>
-                
+
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Hotel Name *</label>
                   <input
@@ -186,7 +313,7 @@ export default function Home() {
                     placeholder="Grand Plaza Hotel"
                   />
                 </div>
-                
+
                 <div className={styles.formRow}>
                   <div className={styles.formGroup}>
                     <label className={styles.formLabel}>Your Role *</label>
@@ -206,7 +333,7 @@ export default function Home() {
                       <option value="other">Other</option>
                     </select>
                   </div>
-                  
+
                   <div className={styles.formGroup}>
                     <label className={styles.formLabel}>Hotel Size *</label>
                     <select
@@ -225,9 +352,11 @@ export default function Home() {
                     </select>
                   </div>
                 </div>
-                
+
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Phone Number (Optional)</label>
+                  <label className={styles.formLabel}>
+                    Phone Number (Optional)
+                  </label>
                   <input
                     type="tel"
                     name="phoneNumber"
@@ -237,9 +366,11 @@ export default function Home() {
                     placeholder="+1 234 567 8900"
                   />
                 </div>
-                
+
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Message / Specific Needs (Optional)</label>
+                  <label className={styles.formLabel}>
+                    Message / Specific Needs (Optional)
+                  </label>
                   <textarea
                     name="message"
                     value={formData.message}
@@ -249,17 +380,20 @@ export default function Home() {
                     rows="3"
                   />
                 </div>
-                
-                <button 
-                  type="submit" 
+
+                <button
+                  type="submit"
                   className={styles.submitButton}
                   disabled={formStatus === "loading"}
                 >
-                  {formStatus === "loading" ? "Submitting..." : "Join Waitlist →"}
+                  {formStatus === "loading"
+                    ? "Submitting..."
+                    : "Join Waitlist →"}
                 </button>
-                
+
                 <p className={styles.formNote}>
-                  We'll notify you once GetHotelAI launches. No spam, just updates.
+                  We'll notify you once GetHotelAI launches. No spam, just
+                  updates.
                 </p>
               </form>
             )}
@@ -268,67 +402,117 @@ export default function Home() {
       )}
 
       {/* Philosophy Section */}
-      <section ref={philosophyRef} className={styles.philosophy}>
+      <section
+        ref={philosophyRef}
+        className={`${styles.philosophy} ${!isDarkMode ? styles.lightPhilosophy : ""}`}
+      >
         <div className={styles.philosophyContainer}>
           <h2>Our Philosophy</h2>
-          <p className={styles.philosophySubhead}>AI should empower humans, not replace them.</p>
+          <p className={styles.philosophySubhead}>
+            AI should empower humans, not replace them.
+          </p>
           <div className={styles.philosophyGrid}>
-            <div className={styles.philosophyCard}>
+            <div
+              className={`${styles.philosophyCard} ${!isDarkMode ? styles.lightCard : ""}`}
+            >
               <div className={styles.philosophyIcon}>🎯</div>
               <h3>Handoff in &lt;3 seconds</h3>
-              <p>When AI confidence drops below 85%, human takes over. Seamless. No "I don't understand" loops.</p>
+              <p>
+                When AI confidence drops below 85%, human takes over. Seamless.
+                No "I don't understand" loops.
+              </p>
             </div>
-            <div className={styles.philosophyCard}>
+            <div
+              className={`${styles.philosophyCard} ${!isDarkMode ? styles.lightCard : ""}`}
+            >
               <div className={styles.philosophyIcon}>🧠</div>
               <h3>Real NLP, not keywords</h3>
-              <p>Full intent detection. "I need to leave early" = cancellation flow. "Can I get fresh towels?" = housekeeping.</p>
+              <p>
+                Full intent detection. "I need to leave early" = cancellation
+                flow. "Can I get fresh towels?" = housekeeping.
+              </p>
             </div>
-            <div className={styles.philosophyCard}>
+            <div
+              className={`${styles.philosophyCard} ${!isDarkMode ? styles.lightCard : ""}`}
+            >
               <div className={styles.philosophyIcon}>👥</div>
               <h3>Role-Based Access</h3>
-              <p>Front desk sees guests. Managers see analytics. Owners see revenue. Granular permissions built-in.</p>
+              <p>
+                Front desk sees guests. Managers see analytics. Owners see
+                revenue. Granular permissions built-in.
+              </p>
             </div>
-            <div className={styles.philosophyCard}>
+            <div
+              className={`${styles.philosophyCard} ${!isDarkMode ? styles.lightCard : ""}`}
+            >
               <div className={styles.philosophyIcon}>🗣️</div>
               <h3>Voice Native</h3>
-              <p>Q4 2025: Phone calls, room phones, Alexa-style voice commands. Same intelligence, new interface.</p>
+              <p>
+                Q4 2026: Phone calls, room phones, Alexa-style voice commands.
+                Same intelligence, new interface.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Grid */}
-      <section ref={featuresRef} className={styles.features}>
+      <section
+        ref={featuresRef}
+        className={`${styles.features} ${!isDarkMode ? styles.lightFeatures : ""}`}
+      >
         <h2>What Our AI Handles</h2>
         <div className={styles.featuresGrid}>
-          <div className={styles.featureCard}>
+          <div
+            className={`${styles.featureCard} ${!isDarkMode ? styles.lightCard : ""}`}
+          >
             <div className={styles.featureIcon}>📅</div>
             <h3>Booking &amp; Reservations</h3>
-            <p>New bookings, modifications, cancellations, refunds. Full calendar sync with your PMS.</p>
+            <p>
+              New bookings, modifications, cancellations, refunds. Full calendar
+              sync with your PMS.
+            </p>
           </div>
-          <div className={styles.featureCard}>
+          <div
+            className={`${styles.featureCard} ${!isDarkMode ? styles.lightCard : ""}`}
+          >
             <div className={styles.featureIcon}>🔧</div>
             <h3>Service Actions</h3>
-            <p>Room service, maintenance, housekeeping, late checkout. Direct integration with hotel ops.</p>
+            <p>
+              Room service, maintenance, housekeeping, late checkout. Direct
+              integration with hotel ops.
+            </p>
           </div>
-          <div className={styles.featureCard}>
+          <div
+            className={`${styles.featureCard} ${!isDarkMode ? styles.lightCard : ""}`}
+          >
             <div className={styles.featureIcon}>🔐</div>
             <h3>RBAC &amp; Permissions</h3>
-            <p>Granular roles: Agent, Supervisor, Manager, Admin, Owner. Audit logs for compliance.</p>
+            <p>
+              Granular roles: Agent, Supervisor, Manager, Admin, Owner. Audit
+              logs for compliance.
+            </p>
           </div>
-          <div className={styles.featureCard}>
+          <div
+            className={`${styles.featureCard} ${!isDarkMode ? styles.lightCard : ""}`}
+          >
             <div className={styles.featureIcon}>🎧</div>
             <h3>Live Human Handoff</h3>
-            <p>AI escalates to support team instantly. Context preserved. No repetition needed.</p>
+            <p>
+              AI escalates to support team instantly. Context preserved. No
+              repetition needed.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Waitlist Section */}
-      <section className={styles.waitlist}>
+      <section
+        className={`${styles.waitlist} ${!isDarkMode ? styles.lightWaitlist : ""}`}
+      >
         <div className={styles.waitlistContainer}>
           <h2>Be the first to know</h2>
-          <p>Launching Q3 2025. Early access for first 50 hotels.</p>
+          <p>Launching Q3 2026. Early access for first 50 hotels.</p>
           {status === "success" ? (
             <div className={styles.successMessage}>
               ✓ You're on the list! We'll reach out.
@@ -356,8 +540,13 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <p>© 2025 GetHotelAI. Human-like AI for modern hotels. Built for global hospitality.</p>
+      <footer
+        className={`${styles.footer} ${!isDarkMode ? styles.lightFooter : ""}`}
+      >
+        <p>
+          © 2026 GetHotelAI. Human-like AI for modern hotels. Built for global
+          hospitality.
+        </p>
       </footer>
     </div>
   );
