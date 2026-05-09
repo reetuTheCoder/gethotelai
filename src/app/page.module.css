@@ -1,6 +1,8 @@
 .container {
   min-height: 100vh;
   padding: 0px 4rem;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Navbar Styles */
@@ -12,6 +14,7 @@
   border-bottom: 1px solid #1c1c2b;
   position: relative;
   z-index: 10;
+  gap: 1rem;
 }
 
 .logo {
@@ -20,6 +23,8 @@
   display: flex;
   align-items: center;
   gap: 0px;
+  flex-shrink: 0;
+  margin-right: auto;
 }
 
 .logo h3 {
@@ -29,10 +34,21 @@
   margin-top: 10px;
   margin-left: -10px;
 }
+
+.navIcons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
 .navItems {
   list-style: none;
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin-left: auto;
 }
 
 .navItem {
@@ -44,9 +60,102 @@
   color: var(--primary-color);
 }
 
-.navIcons {
+/* Theme Toggle Button */
+.themeToggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.themeToggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Menu Button (Burger Icon) */
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 100;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: white; 
+}
+
+.menuButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.burgerIcon {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: currentColor;
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+   background-color: currentColor; 
+}
+
+.menuButtonActive .burgerIcon:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menuButtonActive .burgerIcon:nth-child(2) {
+  opacity: 0;
+}
+
+.menuButtonActive .burgerIcon:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+.lightNavbar .menuButton {
+  color: #333; /* Dark color for light mode */
+}
+
+.lightNavbar .burgerIcon {
+  background-color: currentColor;
+}
+
+/* Mobile Coming Soon Button */
+.mobileComingSoon {
+  display: none;
+}
+
+.mobileBtnDark {
+  width: 100%;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.mobileBtnDark:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
 
 /* Banner Styles */
@@ -57,16 +166,9 @@
   gap: 2rem;
 }
 
-@media (min-width: 768px) {
-  .banner {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-
 .bannerText {
   max-width: 600px;
+  width: 100%;
 }
 
 .bannerText h1 {
@@ -92,6 +194,7 @@
 .bannerButtons {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .btnOrange {
@@ -124,8 +227,10 @@
 }
 
 .bannerImage .imagePlaceholder {
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   background: linear-gradient(
     135deg,
     rgba(255, 102, 0, 0.1) 0%,
@@ -140,19 +245,31 @@
   border: 1px solid rgba(255, 102, 0, 0.3);
 }
 
-.aiPreview {
-  font-size: 3rem;
-  animation: pulse 2s infinite;
+/* Trust Badges */
+.trustBadges {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+.trustBadges span {
+  font-size: 0.85rem;
+  background: rgba(255, 102, 0, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 102, 0, 0.3);
+  white-space: nowrap;
+}
+
+.chatPreview {
+  font-size: 0.75rem;
+  margin-top: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+  border-radius: 8px;
+  max-width: 280px;
+  line-height: 1.4;
 }
 
 /* Features Section */
@@ -185,9 +302,7 @@
   padding: 32px 24px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .featureCard:hover {
@@ -221,6 +336,7 @@
 .waitlistContainer {
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .waitlistContainer h2 {
@@ -292,456 +408,6 @@
   color: #b5b0bc;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .features {
-    padding: 60px 20px;
-  }
-
-  .features h2 {
-    font-size: 2rem;
-  }
-
-  .featuresGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .waitlistForm {
-    flex-direction: column;
-  }
-
-  .emailInput {
-    width: 100%;
-  }
-
-  .bannerText h1 {
-    font-size: 2rem;
-  }
-
-  .navbar {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .navItems {
-    gap: 1rem;
-  }
-}
-
-/* Trust Badges */
-.trustBadges {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.trustBadges span {
-  font-size: 0.85rem;
-  background: rgba(255, 102, 0, 0.1);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 102, 0, 0.3);
-}
-
-.chatPreview {
-  font-size: 0.75rem;
-  margin-top: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem;
-  border-radius: 8px;
-  max-width: 250px;
-}
-
-/* Philosophy Section */
-.philosophy {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
-}
-
-.philosophyContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.philosophy h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.philosophySubhead {
-  text-align: center;
-  color: #b5b0bc;
-  margin-bottom: 3rem;
-  font-size: 1.2rem;
-}
-
-.philosophyGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-}
-
-.philosophyCard {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(28, 31, 42, 0.4);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.philosophyIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.philosophyCard h3 {
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
-}
-
-.philosophyCard p {
-  color: #b5b0bc;
-  line-height: 1.6;
-}
-
-/* Roadmap Section */
-.roadmap {
-  padding: 80px 40px;
-  background: #0d0f1b;
-}
-
-.roadmap h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.roadmapSubhead {
-  text-align: center;
-  color: #b5b0bc;
-  margin-bottom: 3rem;
-}
-
-.timeline {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 20px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--primary-gradient);
-}
-
-.timelineItem {
-  position: relative;
-  padding-left: 60px;
-  margin-bottom: 3rem;
-}
-
-.timelineDot {
-  position: absolute;
-  left: 12px;
-  top: 5px;
-  width: 18px;
-  height: 18px;
-  background: var(--primary-color);
-  border-radius: 50%;
-  border: 3px solid var(--secondary-color);
-}
-
-.timelineContent {
-  background: rgba(28, 31, 42, 0.4);
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  background: var(--primary-gradient);
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  margin-bottom: 0.75rem;
-}
-
-.timelineContent h3 {
-  margin-bottom: 0.5rem;
-}
-
-.timelineContent p {
-  color: #b5b0bc;
-  margin-bottom: 1rem;
-}
-
-.timelineContent ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.timelineContent li {
-  padding: 0.25rem 0;
-  color: #ccc;
-}
-
-/* Why Us Section */
-.whyUs {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
-}
-
-.whyUs h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.whyGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.whyCard {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(28, 31, 42, 0.4);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.whyCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
-}
-
-.whyNumber {
-  font-size: 3rem;
-  font-weight: bold;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 1rem;
-}
-
-.whyCard h3 {
-  margin-bottom: 1rem;
-}
-
-.whyCard p {
-  color: #b5b0bc;
-  line-height: 1.6;
-}
-
-/* Responsive updates */
-@media (max-width: 768px) {
-  .philosophy,
-  .roadmap,
-  .whyUs {
-    padding: 60px 20px;
-  }
-
-  .timeline::before {
-    left: 15px;
-  }
-
-  .timelineItem {
-    padding-left: 45px;
-  }
-
-  .timelineDot {
-    left: 7px;
-  }
-
-  .trustBadges {
-    justify-content: center;
-  }
-}
-
-/* Architecture Section */
-.architecture {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
-}
-
-.architecture h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.architectureSubhead {
-  text-align: center;
-  color: #b5b0bc;
-  margin-bottom: 3rem;
-}
-
-.architectureGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.architectureCard {
-  background: rgba(28, 31, 42, 0.6);
-  backdrop-filter: blur(10px);
-  padding: 32px 24px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.architectureCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
-}
-
-.architectureIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.architectureCard h3 {
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
-}
-
-.architectureCard p {
-  color: #b5b0bc;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.architectureCard ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.architectureCard li {
-  padding: 0.25rem 0;
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-.architectureNote {
-  max-width: 800px;
-  margin: 2rem auto 0;
-  padding: 1rem;
-  background: rgba(255, 102, 0, 0.1);
-  border-left: 3px solid var(--primary-color);
-  border-radius: 8px;
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-/* For Hotels Section */
-.forHotels {
-  padding: 80px 40px;
-  background: #0d0f1b;
-}
-
-.forHotels h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.hotelsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.hotelsCard {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(28, 31, 42, 0.4);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.hotelsCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
-}
-
-.hotelsIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.hotelsCard h3 {
-  margin-bottom: 1rem;
-  color: var(--secondary-color);
-}
-
-.hotelsCard p {
-  color: #b5b0bc;
-  line-height: 1.6;
-}
-
-/* Responsive updates */
-@media (max-width: 768px) {
-  .architecture,
-  .forHotels {
-    padding: 60px 20px;
-  }
-
-  .architecture h2,
-  .forHotels h2 {
-    font-size: 2rem;
-  }
-
-  .architectureGrid,
-  .hotelsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Trust Badges */
-.trustBadges {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.trustBadges span {
-  font-size: 0.85rem;
-  background: rgba(255, 102, 0, 0.1);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 102, 0, 0.3);
-}
-
-.chatPreview {
-  font-size: 0.75rem;
-  margin-top: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem;
-  border-radius: 8px;
-  max-width: 280px;
-  line-height: 1.4;
-}
-
 /* Philosophy Section */
 .philosophy {
   padding: 80px 40px;
@@ -801,732 +467,6 @@
   line-height: 1.6;
 }
 
-/* Architecture Section */
-.architecture {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.architecture h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.architectureSubhead {
-  text-align: center;
-  color: #b5b0bc;
-  margin-bottom: 3rem;
-  font-size: 1.1rem;
-}
-
-.architectureGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.architectureCard {
-  background: rgba(28, 31, 42, 0.6);
-  backdrop-filter: blur(10px);
-  padding: 32px 24px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.architectureCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
-}
-
-.architectureIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.architectureCard h3 {
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-}
-
-.architectureCard p {
-  color: #b5b0bc;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.architectureCard ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 1rem;
-}
-
-.architectureCard li {
-  padding: 0.35rem 0;
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-.architectureNote {
-  max-width: 800px;
-  margin: 2rem auto 0;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 102, 0, 0.1);
-  border-left: 3px solid var(--primary-color);
-  border-radius: 8px;
-  color: #ccc;
-  font-size: 0.95rem;
-  text-align: center;
-}
-
-/* Roadmap Section */
-.roadmap {
-  padding: 80px 40px;
-  background: #0d0f1b;
-}
-
-.roadmap h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.roadmapSubhead {
-  text-align: center;
-  color: #b5b0bc;
-  margin-bottom: 3rem;
-  font-size: 1.1rem;
-}
-
-.timeline {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 20px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--primary-gradient);
-}
-
-.timelineItem {
-  position: relative;
-  padding-left: 60px;
-  margin-bottom: 3rem;
-}
-
-.timelineDot {
-  position: absolute;
-  left: 12px;
-  top: 5px;
-  width: 18px;
-  height: 18px;
-  background: var(--primary-color);
-  border-radius: 50%;
-  border: 3px solid var(--secondary-color);
-  z-index: 1;
-}
-
-.timelineContent {
-  background: rgba(28, 31, 42, 0.4);
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  background: var(--primary-gradient);
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  margin-bottom: 0.75rem;
-}
-
-.timelineContent h3 {
-  margin-bottom: 0.5rem;
-  color: var(--secondary-color);
-}
-
-.timelineContent p {
-  color: #b5b0bc;
-  margin-bottom: 1rem;
-  line-height: 1.5;
-}
-
-.timelineContent ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.timelineContent li {
-  padding: 0.25rem 0;
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-/* For Hotels Section */
-.forHotels {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
-}
-
-.forHotels h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.hotelsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.hotelsCard {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(28, 31, 42, 0.4);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.hotelsCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
-}
-
-.hotelsIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.hotelsCard h3 {
-  margin-bottom: 1rem;
-  color: var(--secondary-color);
-}
-
-.hotelsCard p {
-  color: #b5b0bc;
-  line-height: 1.6;
-}
-
-/* Why Us Section */
-.whyUs {
-  padding: 80px 40px;
-  background: #0d0f1b;
-}
-
-.whyUs h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.whyGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.whyCard {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(28, 31, 42, 0.4);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.whyCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
-}
-
-.whyNumber {
-  font-size: 3rem;
-  font-weight: bold;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 1rem;
-}
-
-.whyCard h3 {
-  margin-bottom: 1rem;
-}
-
-.whyCard p {
-  color: #b5b0bc;
-  line-height: 1.6;
-}
-
-/* Responsive Updates */
-@media (max-width: 768px) {
-  .philosophy,
-  .architecture,
-  .roadmap,
-  .forHotels,
-  .whyUs {
-    padding: 60px 20px;
-  }
-
-  .philosophy h2,
-  .architecture h2,
-  .roadmap h2,
-  .forHotels h2,
-  .whyUs h2 {
-    font-size: 2rem;
-  }
-
-  .timeline::before {
-    left: 15px;
-  }
-
-  .timelineItem {
-    padding-left: 45px;
-  }
-
-  .timelineDot {
-    left: 7px;
-  }
-
-  .trustBadges {
-    justify-content: center;
-  }
-
-  .chatPreview {
-    font-size: 0.7rem;
-    max-width: 240px;
-  }
-
-  .philosophyGrid,
-  .architectureGrid,
-  .hotelsGrid,
-  .whyGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .architectureCard ul li {
-    font-size: 0.85rem;
-  }
-}
-
-/* For very small screens */
-@media (max-width: 480px) {
-  .chatPreview {
-    display: none;
-  }
-
-  .trustBadges span {
-    font-size: 0.7rem;
-  }
-}
-
-/* Stats Section - Real Industry Data */
-.stats {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.statsContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.stats h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  margin-bottom: 2rem;
-}
-
-.statCard {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(28, 31, 42, 0.4);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.statNumber {
-  font-size: 3rem;
-  font-weight: bold;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 0.5rem;
-}
-
-.statCard p {
-  color: #b5b0bc;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.statsFootnote {
-  text-align: center;
-  color: #666;
-  font-size: 0.7rem;
-  margin-top: 1rem;
-}
-
-/* Integrations Section */
-.integrations {
-  padding: 80px 40px;
-  background: #0d0f1b;
-  text-align: center;
-}
-
-.integrations h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.integrationsSubhead {
-  color: #b5b0bc;
-  margin-bottom: 3rem;
-}
-
-.pmsLogos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.pmsLogos span,
-.pmsLogosSecond span {
-  padding: 0.5rem 1.5rem;
-  background: rgba(28, 31, 42, 0.6);
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-.pmsLogos span:hover,
-.pmsLogosSecond span:hover {
-  border-color: var(--primary-color);
-  transform: translateY(-2px);
-}
-
-.pmsLogosSecond {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.integrationsNote {
-  color: #888;
-  font-size: 0.85rem;
-  margin-top: 1rem;
-}
-
-/* ROI Value Section (No Calculator) */
-.roiValue {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #0d0f1b 0%, #131626 100%);
-}
-
-.roiContainer {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.roiValue h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.roiGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
-  margin-bottom: 3rem;
-}
-
-.roiItem {
-  text-align: center;
-}
-
-.roiIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.roiItem h3 {
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
-}
-
-.roiItem p {
-  color: #b5b0bc;
-  line-height: 1.6;
-}
-
-.roiNote {
-  text-align: center;
-  padding: 1rem;
-  background: rgba(255, 102, 0, 0.1);
-  border-radius: 12px;
-  color: #ccc;
-  font-size: 0.95rem;
-}
-
-/* Responsive updates */
-@media (max-width: 768px) {
-  .stats,
-  .integrations,
-  .roiValue {
-    padding: 60px 20px;
-  }
-
-  .stats h2,
-  .integrations h2,
-  .roiValue h2 {
-    font-size: 2rem;
-  }
-
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .statNumber {
-    font-size: 2.5rem;
-  }
-
-  .pmsLogos span,
-  .pmsLogosSecond span {
-    font-size: 0.8rem;
-    padding: 0.4rem 1rem;
-  }
-
-  .roiGrid {
-    gap: 30px;
-  }
-}
-
-/* Pain Points Section - Why Most AI Fails */
-.painPoints {
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #0d0f1b 0%, #1a0d00 100%);
-  border-top: 2px solid rgba(255, 102, 0, 0.3);
-  border-bottom: 2px solid rgba(255, 102, 0, 0.3);
-}
-
-.painContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.painPoints h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #fff;
-}
-
-.painSubhead {
-  text-align: center;
-  color: #b5b0bc;
-  margin-bottom: 3rem;
-  font-size: 1.2rem;
-}
-
-.painGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  margin-bottom: 60px;
-}
-
-.painCard {
-  background: rgba(28, 31, 42, 0.6);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.painCard:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
-}
-
-.painIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.painCard h3 {
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-}
-
-.painCard p {
-  color: #b5b0bc;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.painResult {
-  background: rgba(255, 68, 68, 0.1);
-  padding: 0.75rem;
-  border-radius: 8px;
-  color: #ff8888;
-  font-size: 0.85rem;
-  border-left: 3px solid #ff4444;
-}
-
-.painVsOur {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 40px;
-  padding: 40px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 102, 0, 0.1) 0%,
-    rgba(154, 245, 10, 0.1) 100%
-  );
-  border-radius: 20px;
-  border: 1px solid rgba(255, 102, 0, 0.3);
-}
-
-.painVsColumn {
-  flex: 1;
-  min-width: 250px;
-}
-
-.painVsColumn h3 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 1.3rem;
-}
-
-.painVsColumn:first-child h3 {
-  color: #ff8888;
-}
-
-.painVsColumn:last-child h3 {
-  color: var(--secondary-color);
-}
-
-.painVsColumn ul {
-  list-style: none;
-  padding: 0;
-}
-
-.painVsColumn li {
-  padding: 0.5rem 0;
-  padding-left: 1.5rem;
-  position: relative;
-  color: #ccc;
-}
-
-.painVsColumn:first-child li::before {
-  content: "✗";
-  position: absolute;
-  left: 0;
-  color: #ff4444;
-}
-
-.painVsColumn:last-child li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: var(--secondary-color);
-}
-
-.painVsArrow {
-  font-size: 3rem;
-  display: flex;
-  align-items: center;
-  color: var(--primary-color);
-}
-
-.painCallout {
-  text-align: center;
-  padding: 1.5rem;
-  background: rgba(255, 102, 0, 0.15);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 102, 0, 0.3);
-  font-size: 1.1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.painCallout span {
-  font-size: 1.5rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .painPoints {
-    padding: 60px 20px;
-  }
-
-  .painPoints h2 {
-    font-size: 2rem;
-  }
-
-  .painGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .painVsOur {
-    flex-direction: column;
-    padding: 30px 20px;
-  }
-
-  .painVsArrow {
-    transform: rotate(90deg);
-    justify-content: center;
-  }
-
-  .painCallout {
-    font-size: 0.9rem;
-  }
-}
-
 /* Modal Styles */
 .modalOverlay {
   position: fixed;
@@ -1541,6 +481,7 @@
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease;
+  padding: 1rem;
 }
 
 @keyframes fadeIn {
@@ -1558,7 +499,7 @@
   border-radius: 20px;
   padding: 2rem;
   max-width: 550px;
-  width: 90%;
+  width: 100%;
   max-height: 85vh;
   overflow-y: auto;
   position: relative;
@@ -1643,6 +584,7 @@
   color: white;
   font-size: 0.9rem;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .formInput:focus,
@@ -1670,6 +612,117 @@
   margin-top: 0.5rem;
 }
 
+/* Light Mode Styles */
+.lightContainer {
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.lightNavbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.lightNavbar .logo {
+  color: #1a1a1a;
+}
+
+.lightNavbar .navItem {
+  color: #333;
+}
+
+.lightNavbar .navItem:hover {
+  color: var(--primary-color);
+}
+
+.lightBanner {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+}
+
+.lightBanner .bannerText p {
+  color: #666;
+}
+
+.lightBanner .trustBadges span {
+  background: rgba(255, 102, 0, 0.1);
+  border-color: rgba(255, 102, 0, 0.3);
+  color: #333;
+}
+
+.lightPhilosophy {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.lightFeatures {
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+}
+
+.lightWaitlist {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.lightCard {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.lightCard h3 {
+  color: var(--primary-color);
+}
+
+.lightCard p {
+  color: #666;
+}
+
+.lightFooter {
+  border-top: 1px solid #e0e0e0;
+  color: #666;
+}
+
+.lightModal {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  border: 1px solid rgba(255, 102, 0, 0.3);
+}
+
+.lightModal .formInput,
+.lightModal .formSelect,
+.lightModal .formTextarea {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.lightModal .formLabel {
+  color: #666;
+}
+
+.lightModal .modalSubtitle {
+  color: #888;
+}
+
+.lightModal .formNote {
+  color: #999;
+}
+
+.lightNavbar .navItems {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  border-left: 1px solid rgba(255, 102, 0, 0.3);
+}
+
+.lightNavbar .navItem {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.lightNavbar .mobileComingSoon {
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+.lightNavbar .mobileBtnDark {
+  background: var(--primary-gradient);
+  color: white;
+}
+
 /* Scrollbar styling */
 .modalContent::-webkit-scrollbar {
   width: 8px;
@@ -1685,10 +738,186 @@
   border-radius: 10px;
 }
 
+/* Prevent body scroll when mobile menu is open */
+body.menuOpen {
+  overflow: hidden;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .container {
+    padding: 0px 2rem;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  /* Hide desktop Coming Soon button on mobile/tablet */
+  .navIcons .btnDark {
+    display: none !important;
+  }
+
+  /* Show mobile Coming Soon button in menu */
+  .mobileComingSoon {
+    display: block;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    list-style: none;
+  }
+
+  .navItems {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 320px;
+    height: 100vh;
+    background: linear-gradient(135deg, #131626 0%, #0d0f1b 100%);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 80px 2rem 2rem 2rem;
+    gap: 1.5rem;
+    transition: right 0.3s ease;
+    z-index: 99;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+    border-left: 1px solid rgba(255, 102, 0, 0.3);
+    overflow-y: auto;
+    margin-left: 0;
+  }
+
+  .navItemsOpen {
+    right: 0;
+  }
+
+  .navItem {
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .navItem:hover {
+    padding-left: 10px;
+  }
+
+  .bannerText h1 {
+    font-size: 2.5rem;
+  }
+
+  .features h2,
+  .philosophy h2 {
+    font-size: 2.2rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .container {
+    padding: 0px 1rem;
+  }
+
+  .navbar {
+    padding: 1rem;
+  }
+
+  .themeToggle {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .menuButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .burgerIcon {
+    width: 20px;
+  }
+
+  .banner {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .bannerText {
+    max-width: 100%;
+  }
+
+  .bannerText h1 {
+    font-size: 2rem;
+  }
+
+  .bannerText p {
+    font-size: 1rem;
+  }
+
+  .bannerButtons {
+    justify-content: center;
+  }
+
+  .trustBadges {
+    justify-content: center;
+  }
+
+  .trustBadges span {
+    font-size: 0.7rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .bannerImage {
+    display: flex;
+    justify-content: center;
+  }
+
+  .bannerImage .imagePlaceholder {
+    max-width: 250px;
+  }
+
+  .chatPreview {
+    display: none;
+  }
+
+  .features,
+  .philosophy {
+    padding: 60px 20px;
+  }
+
+  .features h2,
+  .philosophy h2 {
+    font-size: 2rem;
+  }
+
+  .philosophySubhead {
+    font-size: 1rem;
+  }
+
+  .featuresGrid,
+  .philosophyGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .waitlistForm {
+    flex-direction: column;
+  }
+
+  .emailInput {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+
   .modalContent {
     padding: 1.5rem;
     width: 95%;
+    max-height: 90vh;
   }
 
   .formRow {
@@ -1699,228 +928,172 @@
   .modalTitle {
     font-size: 1.5rem;
   }
+
+  .navItems {
+    width: 280px;
+    padding: 70px 1.5rem 1.5rem 1.5rem;
+  }
 }
 
-/* Theme Toggle Button */
-.themeToggle {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@media (max-width: 480px) {
+  .bannerText h1 {
+    font-size: 1.75rem;
+  }
+
+  .features h2,
+  .philosophy h2 {
+    font-size: 1.75rem;
+  }
+
+  .btnOrange,
+  .btnDark {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .featureCard,
+  .philosophyCard {
+    padding: 1.5rem;
+  }
+
+  .featureIcon,
+  .philosophyIcon {
+    font-size: 2.5rem;
+  }
+
+  .featureCard h3,
+  .philosophyCard h3 {
+    font-size: 1.2rem;
+  }
+
+  .trustBadges {
+    gap: 0.5rem;
+  }
+
+  .trustBadges span {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .modalContent {
+    padding: 1.25rem;
+  }
+
+  .modalTitle {
+    font-size: 1.3rem;
+  }
+
+  .modalSubtitle {
+    font-size: 0.8rem;
+  }
+
+  .formLabel {
+    font-size: 0.8rem;
+  }
+
+  .formInput,
+  .formSelect,
+  .formTextarea {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .footer {
+    padding: 20px;
+    font-size: 0.8rem;
+  }
 }
 
-.themeToggle:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+@media (max-width: 360px) {
+  .bannerText h1 {
+    font-size: 1.5rem;
+  }
+
+  .navItems {
+    gap: 0.75rem;
+  }
+
+  .navItem {
+    font-size: 0.85rem;
+  }
+
+  .btnOrange,
+  .btnDark {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .themeToggle {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
 }
 
-/* Light Mode Styles */
-.lightContainer {
-  background-color: #f5f5f5;
-  color: #1a1a1a;
+@media (min-width: 1201px) {
+  .container {
+    padding: 0px 8rem;
+  }
+
+  .menuButton {
+    display: none !important;
+  }
+
+  /* Hide mobile Coming Soon button on desktop */
+  .mobileComingSoon {
+    display: none !important;
+  }
+
+  /* Ensure desktop button is visible */
+  .navIcons .btnDark {
+    display: block;
+  }
+
+  .banner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 2rem;
+  }
+
+  .bannerText h1 {
+    font-size: 3.5rem;
+  }
 }
 
-.lightNavbar {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
+@media (min-width: 1600px) {
+  .container {
+    padding: 0px 12rem;
+  }
+
+  .bannerText h1 {
+    font-size: 4rem;
+  }
+
+  .featuresGrid,
+  .philosophyGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-.lightNavbar .logo {
-  color: #1a1a1a;
-}
+/* Print styles */
+@media print {
+  .navbar,
+  .bannerButtons,
+  .waitlist,
+  .themeToggle,
+  .modalOverlay {
+    display: none;
+  }
 
-.lightNavbar .navItem {
-  color: #333;
-}
+  .container {
+    padding: 0;
+    color: black;
+  }
 
-.lightNavbar .navItem:hover {
-  color: var(--primary-color);
-}
-
-.lightBanner {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-}
-
-.lightBanner .bannerText p {
-  color: #666;
-}
-
-.lightBanner .trustBadges span {
-  background: rgba(255, 102, 0, 0.1);
-  border-color: rgba(255, 102, 0, 0.3);
-  color: #333;
-}
-
-.lightPhilosophy {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-}
-
-.lightFeatures {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-}
-
-.lightWaitlist {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-}
-
-.lightCard {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.lightCard h3 {
-  color: var(--primary-color);
-}
-
-.lightCard p {
-  color: #666;
-}
-
-.lightFooter {
-  border-top: 1px solid #e0e0e0;
-  color: #666;
-}
-
-.lightModal {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-  border: 1px solid rgba(255, 102, 0, 0.3);
-}
-
-.lightModal .formInput,
-.lightModal .formSelect,
-.lightModal .formTextarea {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: #333;
-}
-
-.lightModal .formLabel {
-  color: #666;
-}
-
-.lightModal .modalSubtitle {
-  color: #888;
-}
-
-.lightModal .formNote {
-  color: #999;
-}
-
-/* Theme Toggle Button */
-.themeToggle {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.themeToggle:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
-}
-
-/* Light Mode Styles */
-.lightContainer {
-  background-color: #f5f5f5;
-  color: #1a1a1a;
-}
-
-.lightNavbar {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.lightNavbar .logo {
-  color: #1a1a1a;
-}
-
-.lightNavbar .navItem {
-  color: #333;
-}
-
-.lightNavbar .navItem:hover {
-  color: var(--primary-color);
-}
-
-.lightBanner {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-}
-
-.lightBanner .bannerText p {
-  color: #666;
-}
-
-.lightBanner .trustBadges span {
-  background: rgba(255, 102, 0, 0.1);
-  border-color: rgba(255, 102, 0, 0.3);
-  color: #333;
-}
-
-.lightPhilosophy {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-}
-
-.lightFeatures {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-}
-
-.lightWaitlist {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-}
-
-.lightCard {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.lightCard h3 {
-  color: var(--primary-color);
-}
-
-.lightCard p {
-  color: #666;
-}
-
-.lightFooter {
-  border-top: 1px solid #e0e0e0;
-  color: #666;
-}
-
-.lightModal {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-  border: 1px solid rgba(255, 102, 0, 0.3);
-}
-
-.lightModal .formInput,
-.lightModal .formSelect,
-.lightModal .formTextarea {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: #333;
-}
-
-.lightModal .formLabel {
-  color: #666;
-}
-
-.lightModal .modalSubtitle {
-  color: #888;
-}
-
-.lightModal .formNote {
-  color: #999;
+  .features,
+  .philosophy {
+    background: white;
+    color: black;
+  }
 }

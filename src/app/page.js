@@ -8,6 +8,7 @@ export default function Home() {
   const [status, setStatus] = useState("idle");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -38,6 +39,50 @@ export default function Home() {
     }
   }, []);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const nav = document.querySelector(`.${styles.navbar}`);
+      const menuButton = document.querySelector(`.${styles.menuButton}`);
+      if (
+        isMobileMenuOpen &&
+        nav &&
+        !nav.contains(event.target) &&
+        !menuButton?.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu when window is resized above 1200px
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1200) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add("menuOpen");
+    } else {
+      document.body.classList.remove("menuOpen");
+    }
+
+    return () => {
+      document.body.classList.remove("menuOpen");
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
     if (!isDarkMode) {
@@ -51,10 +96,12 @@ export default function Home() {
 
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
+    setIsMobileMenuOpen(false); // Close menu after clicking
   };
 
   const openModal = () => {
     setIsModalOpen(true);
+    setIsMobileMenuOpen(false); // Close mobile menu if open
   };
 
   const closeModal = () => {
@@ -78,69 +125,64 @@ export default function Home() {
     });
   };
 
-  
   const handleFormSubmit = async (e) => {
-  e.preventDefault();
-  setFormStatus("loading");
+    e.preventDefault();
+    setFormStatus("loading");
 
-  // Log all form data to console
-  console.log("=== New Waitlist Signup ===");
-  console.log("Full Name:", formData.fullName);
-  console.log("Email:", formData.email);
-  console.log("Hotel Name:", formData.hotelName);
-  console.log("Role:", formData.hotelRole);
-  console.log("Hotel Size:", formData.hotelSize);
-  console.log("Phone:", formData.phoneNumber);
-  console.log("Message:", formData.message);
-  console.log("Timestamp:", new Date().toISOString());
-  console.log("==========================");
+    // Log all form data to console
+    console.log("=== New Waitlist Signup ===");
+    console.log("Full Name:", formData.fullName);
+    console.log("Email:", formData.email);
+    console.log("Hotel Name:", formData.hotelName);
+    console.log("Role:", formData.hotelRole);
+    console.log("Hotel Size:", formData.hotelSize);
+    console.log("Phone:", formData.phoneNumber);
+    console.log("Message:", formData.message);
+    console.log("Timestamp:", new Date().toISOString());
+    console.log("==========================");
 
-  try {
-    // Optional fake delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Optional fake delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const fd = new FormData();
+      const fd = new FormData();
 
-    fd.append("email", formData.email);
-    fd.append("email_type", "JOIN_WAIT_LIST");
-    fd.append("to_ghai", "to_ghai");
+      fd.append("email", formData.email);
+      fd.append("email_type", "JOIN_WAIT_LIST");
+      fd.append("to_ghai", "to_ghai");
 
-    fd.append("hotel_name", formData.hotelName || "");
-    fd.append("full_name", formData.fullName || "");
-    fd.append("phone", formData.phoneNumber || "");
-    fd.append("hotel_size", formData.hotelSize || "");
-    fd.append("message", formData.message || "");
+      fd.append("hotel_name", formData.hotelName || "");
+      fd.append("full_name", formData.fullName || "");
+      fd.append("phone", formData.phoneNumber || "");
+      fd.append("hotel_size", formData.hotelSize || "");
+      fd.append("message", formData.message || "");
 
-    const response = await fetch(
-      "https://email2.magicchat.io/prod/send_email",
-      {
-        method: "POST",
-        headers: {
-          "x-api-key": "justanything",
-          // Don't set Content-Type manually for FormData
+      const response = await fetch(
+        "https://email2.magicchat.io/prod/send_email",
+        {
+          method: "POST",
+          headers: {
+            "x-api-key": "justanything",
+          },
+          body: fd,
         },
-        body: fd,
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      setFormStatus("success");
+
+      setTimeout(() => {
+        closeModal();
+      }, 1500);
+    } catch (error) {
+      console.error("❌ Error sending waitlist email:", error);
+      setFormStatus("error");
+      alert("Something went wrong while joining the waitlist.");
     }
-
-    setFormStatus("success");
-
-    setTimeout(() => {
-      closeModal();
-    }, 1500);
-
-  } catch (error) {
-    console.error("❌ Error sending waitlist email:", error);
-
-    setFormStatus("error");
-
-    alert("Something went wrong while joining the waitlist.");
-  }
-};
+  };
 
   const handleSimpleSubmit = async (e) => {
     e.preventDefault();
@@ -172,7 +214,20 @@ export default function Home() {
           <h3>GetHotelAI</h3>
         </div>
 
-        <ul className={styles.navItems}>
+        {/* Burger Menu Button */}
+        <button
+          className={`${styles.menuButton} ${isMobileMenuOpen ? styles.menuButtonActive : ""}`}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className={styles.burgerIcon}></span>
+          <span className={styles.burgerIcon}></span>
+          <span className={styles.burgerIcon}></span>
+        </button>
+
+        <ul
+          className={`${styles.navItems} ${isMobileMenuOpen ? styles.navItemsOpen : ""}`}
+        >
           <li
             className={styles.navItem}
             onClick={() => scrollToSection(featuresRef)}
@@ -203,12 +258,22 @@ export default function Home() {
           >
             For Hotels
           </li>
+          {/* Mobile Coming Soon Button - Only shows in mobile menu */}
+          <li className={styles.mobileComingSoon}>
+            <button className={styles.mobileBtnDark} onClick={openModal}>
+              Coming Soon →
+            </button>
+          </li>
         </ul>
+
         <div className={styles.navIcons}>
           <button className={styles.themeToggle} onClick={toggleTheme}>
             {isDarkMode ? "☀️" : "🌙"}
           </button>
-          <button className={styles.btnDark}>Coming Soon →</button>
+          {/* Desktop Coming Soon Button - Hidden on mobile via CSS */}
+          <button className={styles.btnDark} onClick={openModal}>
+            Coming Soon →
+          </button>
         </div>
       </nav>
 
@@ -243,9 +308,6 @@ export default function Home() {
         </div>
         <div className={styles.bannerImage}>
           <div className={styles.imagePlaceholder}>
-            {/* <div className={styles.aiPreview}>
-              🤖 <span>Human-like AI</span>
-            </div> */}
             <div className={styles.chatPreview}>
               "I've cancelled your reservation. Refund will process in 3-5 days.
               Need anything else?"
